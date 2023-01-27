@@ -1,5 +1,9 @@
 include("shared.lua")
 
+-- called when a trail effect is started
+function ENT:OnTrail( active, id )
+end
+
 -- called when the vehicle is spawned. Use this instead of ENT:Initialize
 function ENT:OnSpawn()
 	-- register a wing-tip trail vortex effect.
@@ -9,8 +13,8 @@ function ENT:OnSpawn()
 	-- self:RegisterTrail( Vector(40,200,70), 0, 20, 2, 1000, 400 )
 end
 
--- called when a trail effect is started
-function ENT:OnTrail( active, id )
+-- use this instead of ENT:OnRemove
+function ENT:OnRemoved()
 end
 
 -- use this instead of ENT:Think()
