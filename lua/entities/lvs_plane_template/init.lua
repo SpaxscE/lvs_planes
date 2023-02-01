@@ -56,6 +56,14 @@ function ENT:OnSpawn( PhysObj )
 	]]
 
 	-- self:AddRotor( Position ) -- add a rotor sound handler
+
+	-- self.SoundEmitter = self:AddSoundEmitter( Position, string_path_exterior_sound, string_path_interior_sound ) -- add a sound emitter
+	-- self.SoundEmitter:SetSoundLevel( 95 ) -- set sound level (95 is good for weapons)
+
+	-- self.SoundEmitter:Play() -- start looping sound (use this in weapon start attack for example)
+	-- self.SoundEmitter:Stop() -- stop looping sound (use this in weapon stop attack for example)
+
+	-- self.SoundEmitter:PlayOnce( pitch, volume ) -- or play a non-looped sound in weapon attack (do not use looped sound files with this, they will never stop)
 end
 
 function ENT:OnDriverChanged( Old, New, VehicleIsActive )
