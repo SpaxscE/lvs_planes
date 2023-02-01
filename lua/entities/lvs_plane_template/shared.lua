@@ -112,8 +112,6 @@ function ENT:InitWeapons()
 
 		ent:LVSFireBullet( bullet )
 
-		ent:EmitSound("npc/sniper/echo1.wav", 95, math.random(95,105), 1, CHAN_WEAPON )
-
 		ent:TakeAmmo( 1 )
 	end
 	weapon.StartAttack = function( ent ) end
