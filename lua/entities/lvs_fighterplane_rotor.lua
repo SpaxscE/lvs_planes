@@ -10,6 +10,13 @@ ENT._LVS = true
 
 function ENT:SetupDataTables()
 	self:NetworkVar( "Entity",0, "Base" )
+	self:NetworkVar( "String", 1, "Sound" )
+	self:NetworkVar( "String", 2, "SoundStrain" )
+
+	if SERVER then
+		self:SetSound("lvs/vehicles/generic/propeller.wav")
+		self:SetSoundStrain("lvs/vehicles/generic/propeller_strain.wav")
+	end
 end
 
 if SERVER then
@@ -52,11 +59,11 @@ function ENT:OnActiveChanged( Active )
 
 	self:StopSounds()
 
-	self._RotorSound1 = CreateSound( self, "lvs/vehicles/generic/propeller.wav" )
+	self._RotorSound1 = CreateSound( self, self:GetSound() )
 	self._RotorSound1:SetSoundLevel( 70 )
 	self._RotorSound1:PlayEx(0,100)
 
-	self._RotorSound2 = CreateSound( self, "lvs/vehicles/generic/propeller_strain.wav" )
+	self._RotorSound2 = CreateSound( self, self:GetSoundStrain() )
 	self._RotorSound2:SetSoundLevel( 140 )
 	self._RotorSound2:PlayEx(0,100)
 end
@@ -81,7 +88,7 @@ function ENT:HandleSounds( vehicle, rpm, throttle )
 
 	if self._RotorSound2 then
 		self._RotorSound2:ChangeVolume( volume2, 0.5 )
-		self._RotorSound2:ChangePitch( pitch2, 0 )
+		self._RotorSound2:ChangePitch( math.min( pitch2, 160), 0.1 )
 	end
 end
 

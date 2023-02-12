@@ -52,6 +52,11 @@ function ENT:AddRotor( pos )
 	Rotor:SetParent( self )
 	Rotor:SetBase( self )
 
+	if self:BoundingRadius() >= 600 then
+		Rotor:SetSound("lvs/vehicles/generic/bomber_propeller.wav")
+		Rotor:SetSoundStrain("lvs/vehicles/generic/bomber_propeller_strain.wav")
+	end
+
 	self:DeleteOnRemove( Rotor )
 
 	self:TransferCPPI( Rotor )
