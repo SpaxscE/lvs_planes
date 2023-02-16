@@ -18,7 +18,7 @@ if SERVER then
 
 	function ENT:SetBrakes( active )
 		if not self._CanUseBrakes then
-			actuve = false
+			active = false
 		end
 
 		if active ~= self._BrakesActive then
