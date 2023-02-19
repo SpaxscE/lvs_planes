@@ -62,9 +62,9 @@ function ENT:InitWeapons()
 	weapon.Icon = Material("lvs/weapons/missile.png")
 	weapon.UseableByAI = false
 	weapon.Ammo = 10
-	weapon.Delay = 0.1
-	weapon.HeatRateUp = 3
-	weapon.HeatRateDown = 0.05
+	weapon.Delay = 0.25
+	weapon.HeatRateUp = 2
+	weapon.HeatRateDown = 0.75
 	weapon.Attack = function( ent )
 		if not ent.MISSILE_ENTITIES then return end
 
