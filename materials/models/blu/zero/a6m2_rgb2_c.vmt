@@ -1,0 +1,16 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/blu/zero/a6m2_rgb2_c"
+	"$bumpmap" "models/blu/zero/a6m2_rgb_b"
+
+	"$nocull" 1
+
+	"$normalmapalphaenvmapmask" "1"
+	"$phong" 		"1"
+	"$phongexponent" 	"50"
+	"$phongboost" "0.5"
+	"$phongfresnelranges"	"[ 1.2 1.2 8]"
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[ .01 .01 .01 ]"
+ 	"$envmapFresnel" "1"
+}

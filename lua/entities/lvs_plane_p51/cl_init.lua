@@ -64,8 +64,8 @@ function ENT:AnimLandingGear( frametime )
 	self:ManipulateBoneAngles( 6, Angle(-90 * gExp,0,0 ) )
 	self:ManipulateBoneAngles( 7, Angle(-90 * gExp,0,0 ) )
 
-	self:ManipulateBoneAngles( 8, Angle(60 * gExpInv,0,0) )
-	self:ManipulateBoneAngles( 9, Angle(60 * gExpInv,0,0) )
+	self:ManipulateBoneAngles( 8, Angle(87 * gExpInv,0,0) )
+	self:ManipulateBoneAngles( 9, Angle(87 * gExpInv,0,0) )
 
 	self:ManipulateBoneAngles( 12, Angle(-90,10,0 ) * self._smLandingGear )
 	self:ManipulateBonePosition( 12, Vector(0,-0.7,0) * self._smLandingGear ) 
