@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/blu/p51/aix_p51d_cockpit_c"
+	"$bumpmap" "models/blu/p51/aix_p51d_cockpit_b"
+}

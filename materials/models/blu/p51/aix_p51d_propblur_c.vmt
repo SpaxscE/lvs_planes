@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/blu/p51/aix_p51d_propblur_c"
+	"$translucent" 1
+}
