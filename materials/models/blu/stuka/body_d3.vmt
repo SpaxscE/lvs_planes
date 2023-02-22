@@ -1,0 +1,5 @@
+VertexLitGeneric
+{
+	$basetexture "models\blu\stuka\body_d3_c"
+	$halflambert "1"
+}
