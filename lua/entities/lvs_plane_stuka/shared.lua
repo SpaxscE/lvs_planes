@@ -32,6 +32,40 @@ ENT.MaxSlipAngleYaw = 10
 ENT.MaxHealth = 650
 
 function ENT:InitWeapons()
+	local weapon = {}
+	weapon.Icon = Material("lvs/weapons/bomb.png")
+	weapon.Ammo = 12
+	weapon.Delay = 0
+	weapon.HeatRateUp = 0
+	weapon.HeatRateDown = 0
+	weapon.Attack = function( ent )
+		if not IsValid( self._ProjectileEntity ) then return end
+
+		self._ProjectileEntity:SetSpeed( ent:GetVelocity() )
+	end
+	weapon.StartAttack = function( ent )
+		local Driver = ent:GetDriver()
+
+		local projectile = ents.Create( "lvs_bomb" )
+		projectile:SetPos( ent:LocalToWorld( Vector(-8,0,65) ) )
+		projectile:SetAngles( ent:GetAngles() )
+		projectile:SetParent( ent )
+		projectile:Spawn()
+		projectile:Activate()
+		projectile:SetModel("models/blu/stuka_bomb.mdl")
+		projectile:SetSpeed( ent:GetVelocity() )
+		projectile:SetAttacker( IsValid( Driver ) and Driver or ent )
+		projectile:SetEntityFilter( ent:GetCrosshairFilterEnts() )
+
+		self._ProjectileEntity = projectile
+	end
+	weapon.FinishAttack = function( ent )
+		if not IsValid( ent._ProjectileEntity ) then return end
+
+		ent._ProjectileEntity:Enable()
+	end
+
+	self:AddWeapon( weapon )
 end
 
 ENT.FlyByAdvance = 0.8

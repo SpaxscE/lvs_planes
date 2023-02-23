@@ -18,7 +18,40 @@ function ENT:OnSpawn( PObj )
 
 	self:AddRotor( Vector(135,0,92) )
 
-	self:AddExhaust( Vector(65.04,-14.93,19.46), Angle(145,-90,0) )
+	local Exhaust = {
+		{
+			pos = Vector(89.5,20,87),
+			ang = Angle(-90,-20,0),
+		},
+		{
+			pos = Vector(83,20,87),
+			ang = Angle(-90,-20,0),
+		},
+		{
+			pos = Vector(76.5,20,87),
+			ang = Angle(-90,-20,0),
+		},
+		{
+			pos = Vector(70,20,87),
+			ang = Angle(-90,-20,0),
+		},
+		{
+			pos = Vector(63.5,20,87),
+			ang = Angle(-90,-20,0),
+		},
+		{
+			pos = Vector(57,20,87),
+			ang = Angle(-90,-20,0),
+		},
+	}
+	for id, exh in pairs( Exhaust ) do
+		for i = -1, 1, 2 do
+			local pos = Vector( exh.pos.x, exh.pos.y * i, exh.pos.z )
+			local ang = Angle( exh.ang.p, exh.ang.y * i, exh.ang.r )
+
+			self:AddExhaust( pos, ang )
+		end
+	end
 end
 
 function ENT:OnEngineActiveChanged( Active )
