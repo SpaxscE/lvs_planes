@@ -50,11 +50,6 @@ function ENT:InitWeapons()
 	weapon.Delay = 0
 	weapon.HeatRateUp = 0
 	weapon.HeatRateDown = 0
-	weapon.Attack = function( ent )
-		if not IsValid( self._ProjectileEntity ) then return end
-
-		self._ProjectileEntity:SetSpeed( ent:GetVelocity() )
-	end
 	weapon.StartAttack = function( ent )
 		local Driver = ent:GetDriver()
 
@@ -65,7 +60,6 @@ function ENT:InitWeapons()
 		projectile:Spawn()
 		projectile:Activate()
 		projectile:SetModel("models/blu/stuka_bomb.mdl")
-		projectile:SetSpeed( ent:GetVelocity() )
 		projectile:SetAttacker( IsValid( Driver ) and Driver or ent )
 		projectile:SetEntityFilter( ent:GetCrosshairFilterEnts() )
 
@@ -73,7 +67,6 @@ function ENT:InitWeapons()
 	end
 	weapon.FinishAttack = function( ent )
 		if not IsValid( ent._ProjectileEntity ) then return end
-
 		ent._ProjectileEntity:Enable()
 	end
 
