@@ -62,6 +62,7 @@ function ENT:InitWeapons()
 		projectile:SetModel("models/blu/stuka_bomb.mdl")
 		projectile:SetAttacker( IsValid( Driver ) and Driver or ent )
 		projectile:SetEntityFilter( ent:GetCrosshairFilterEnts() )
+		projectile:SetSpeed( ent:GetVelocity() )
 
 		self._ProjectileEntity = projectile
 	end
