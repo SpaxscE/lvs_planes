@@ -45,8 +45,9 @@ function ENT:OnFrame()
 	local FT = RealFrameTime()
 
 	self:AnimControlSurfaces( FT )
-	--self:AnimLandingGear( FT )
+	self:AnimLandingGear( FT )
 	self:AnimRotor( FT )
+	self:AnimJerichos( FT )
 end
 
 function ENT:AnimRotor( frametime )
@@ -61,6 +62,24 @@ function ENT:AnimRotor( frametime )
 	self:ManipulateBoneAngles( 17, Rot )
 
 	self:SetBodygroup( 5, PhysRot and 0 or 1 ) 
+end
+
+function ENT:AnimJerichos( frametime )
+	if not self._Jericho then return end
+
+	local JerichoRPM = math.min( self._Jericho:GetVolume() * 10, 1 ) ^ 2 * 2000 + math.min( (self:GetVelocity():Length() / 1000) ^ 2, 1 ) * 500
+
+	self.smJerichoRPM = self.smJerichoRPM and self.smJerichoRPM + (JerichoRPM - self.smJerichoRPM) * frametime * 0.05 or 0
+
+	self._jRPM = self._jRPM and (self._jRPM + JerichoRPM *  frametime) or 0
+
+	local Rot1 = Angle(self._jRPM * 0.99,0,0)
+	Rot1:Normalize() 
+	local Rot2 = Angle(self._jRPM * 1.01,0,0)
+	Rot2:Normalize() 
+
+	self:ManipulateBoneAngles( 9, Rot1 )
+	self:ManipulateBoneAngles( 14, Rot2 )
 end
 
 function ENT:AnimControlSurfaces( frametime )
@@ -85,8 +104,10 @@ function ENT:AnimControlSurfaces( frametime )
 end
 
 function ENT:AnimLandingGear( frametime )
-	self._smLandingGear = self._smLandingGear and self._smLandingGear + (30 *  (1 - self:GetLandingGear()) - self._smLandingGear) * frametime * 8 or 0
+	self._smLandingGear = self._smLandingGear and self._smLandingGear + (self:GetLandingGear() - self._smLandingGear) * frametime * 8 or 0
 
-	self:ManipulateBoneAngles( 1, Angle( 0,30 - self._smLandingGear,0) )
-	self:ManipulateBoneAngles( 2, Angle( 0,30 - self._smLandingGear,0) )
+	self:ManipulateBoneAngles( 7, Angle(-65 * self._smLandingGear,0,0) )
+	self:ManipulateBoneAngles( 8, Angle(-30 * self._smLandingGear,0,0) )
+	self:ManipulateBoneAngles( 12, Angle(65 * self._smLandingGear,0,0) )
+	self:ManipulateBoneAngles( 13, Angle(30 * self._smLandingGear,0,0) )
 end

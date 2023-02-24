@@ -16,7 +16,7 @@ function ENT:OnSpawn( PObj )
 
 	self:AddEngine( Vector(75,0,92) )
 
-	self:AddRotor( Vector(135,0,92) )
+	self:AddRotor( Vector(135,0,92) )	
 
 	local Exhaust = {
 		{
