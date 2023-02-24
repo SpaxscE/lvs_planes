@@ -1,5 +1,41 @@
 include("shared.lua")
 
+function ENT:OnEngineActiveChanged( Active )
+	if Active then
+		self:StartJericho()
+	else
+		self:StopJericho()
+	end
+end
+
+function ENT:OnRemoved()
+	self:StopJericho()
+end
+
+function ENT:OnFrameActive()
+	if not self._Jericho then return end
+
+	local volume = math.Clamp((self:GetVelocity():Length() - self.MaxVelocity) / 500,0,1)
+
+	local pitch = 100 * self:CalcDoppler( LocalPlayer() ) * (0.75 + 0.25 * volume)
+
+	self._Jericho:ChangeVolume( volume, 1 )
+	self._Jericho:ChangePitch( pitch, 1 )
+end
+
+function ENT:StartJericho()
+	self._Jericho = CreateSound( self, "lvs/vehicles/stuka/jericho.wav" )
+	self._Jericho:SetSoundLevel( 140 )
+	self._Jericho:PlayEx(0,100)
+end
+
+function ENT:StopJericho()
+	if not self._Jericho then return end
+
+	self._Jericho:Stop()
+	self._Jericho = nil
+end
+
 function ENT:OnSpawn()
 	self:RegisterTrail( Vector(-22.64,277.91,99.35), 0, 20, 2, 1000, 600 )
 	self:RegisterTrail( Vector(-22.64,-277.91,99.35), 0, 20, 2, 1000, 600 )
