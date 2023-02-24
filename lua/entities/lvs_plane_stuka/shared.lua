@@ -32,6 +32,18 @@ ENT.MaxSlipAngleYaw = 10
 ENT.MaxHealth = 650
 
 function ENT:InitWeapons()
+	self.PosLMG = Vector(27.94,81.46,79.95)
+	self.DirLMG = 0.65
+	local weapon = LVS:GetWeaponPreset( "LMG" )
+	weapon.StartAttack = function( ent )
+		if not IsValid( ent.SoundEmitter1 ) then
+			ent.SoundEmitter1 = ent:AddSoundEmitter( Vector(27.94,0,79.95), "lvs/weapons/mg_light_loop.wav", "lvs/weapons/mg_light_loop_interior.wav" )
+			ent.SoundEmitter1:SetSoundLevel( 95 )
+		end
+		ent.SoundEmitter1:Play()
+	end
+	self:AddWeapon( weapon )
+
 	local weapon = {}
 	weapon.Icon = Material("lvs/weapons/bomb.png")
 	weapon.Ammo = 12
