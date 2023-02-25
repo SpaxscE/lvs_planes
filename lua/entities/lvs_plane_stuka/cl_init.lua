@@ -49,7 +49,28 @@ function ENT:OnFrame()
 	self:AnimLandingGear( FT )
 	self:AnimRotor( FT )
 	self:AnimJerichos( FT )
+	self:AnimBombLauncher( FT )
 	self:PredictPoseParamaters()
+end
+
+function ENT:AnimBombLauncher( frametime )
+	local BombActive = self:GetBodygroup( 6 ) == 1
+
+	if self._oldBombActive ~= BombActive then
+		self._oldBombActive = BombActive
+
+		if not BombActive then
+			self:EmitSound("buttons/lever7.wav",75,60,1)
+
+			self.smBomb = 1
+		end
+	end
+
+	if not self.smBomb then return end
+
+	self.smBomb = math.max(self.smBomb - frametime * 2,0)
+
+	self:ManipulateBoneAngles( 16, Angle(-70 * math.sin( self.smBomb * math.pi ),0,0) )
 end
 
 function ENT:AnimRotor( frametime )
@@ -109,7 +130,7 @@ function ENT:AnimLandingGear( frametime )
 	self._smLandingGear = self._smLandingGear and self._smLandingGear + (self:GetLandingGear() - self._smLandingGear) * frametime * 8 or 0
 
 	self:ManipulateBoneAngles( 7, Angle(-65 * self._smLandingGear,0,0) )
-	self:ManipulateBoneAngles( 8, Angle(-30 * self._smLandingGear,0,0) )
+	self:ManipulateBoneAngles( 8, Angle(-45 * self._smLandingGear,0,0) )
 	self:ManipulateBoneAngles( 12, Angle(65 * self._smLandingGear,0,0) )
-	self:ManipulateBoneAngles( 13, Angle(30 * self._smLandingGear,0,0) )
+	self:ManipulateBoneAngles( 13, Angle(45 * self._smLandingGear,0,0) )
 end

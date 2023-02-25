@@ -59,6 +59,8 @@ function ENT:OnSpawn( PObj )
 	self.SNDTurret = self:AddSoundEmitter( self:WorldToLocal( Muzzle.Pos ), "lvs/weapons/stuka_mg_loop.wav", "lvs/weapons/stuka_mg_loop_interior.wav" )
 	self.SNDTurret:SetSoundLevel( 95 )
 	self.SNDTurret:SetParent( self, ID )
+
+	self:SetBodygroup( 6, 1 ) 
 end
 
 function ENT:OnEngineActiveChanged( Active )
@@ -73,4 +75,8 @@ function ENT:OnCollision( data, physobj )
 	if self:WorldToLocal( data.HitPos ).z < 40 then return true end -- dont detect collision  when the lower part of the model touches the ground
 
 	return false
+end
+
+function ENT:OnMaintenance()
+	self:SetBodygroup( 6, 1 )
 end
