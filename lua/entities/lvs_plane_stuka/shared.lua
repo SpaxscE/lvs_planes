@@ -26,7 +26,7 @@ ENT.ForceLinearMultiplier = 1
 ENT.ForceAngleMultiplier = 1
 ENT.ForceAngleDampingMultiplier = 1
 
-ENT.MaxSlipAnglePitch = 10
+ENT.MaxSlipAnglePitch = 20
 ENT.MaxSlipAngleYaw = 10
 
 ENT.MaxHealth = 650
@@ -82,6 +82,7 @@ function ENT:InitWeapons()
 		projectile:SetAttacker( IsValid( Driver ) and Driver or ent )
 		projectile:SetEntityFilter( ent:GetCrosshairFilterEnts() )
 		projectile:SetSpeed( ent:GetVelocity() )
+		projectile:SetDamage( 6000 )
 
 		self._ProjectileEntity = projectile
 	end
@@ -118,10 +119,10 @@ function ENT:InitWeapons()
 
 		if ent:GetAirBrake() then
 			ent:EmitSound( "npc/dog/dog_pneumatic1.wav", 75, 100 )
-			ent.MaxSlipAnglePitch = 20
+			ent.MaxSlipAnglePitch = 0
 		else
 			ent:EmitSound( "ambient/materials/shutter8.wav", 75, 100 )
-			ent.MaxSlipAnglePitch = 10
+			ent.MaxSlipAnglePitch = 20
 		end
 	end
 	self:AddWeapon( weapon )
