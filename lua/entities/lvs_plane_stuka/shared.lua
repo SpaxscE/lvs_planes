@@ -1,7 +1,7 @@
 
 ENT.Base = "lvs_base_fighterplane"
 
-ENT.PrintName = "Stuka"
+ENT.PrintName = "Ju-87"
 ENT.Author = "Luna"
 ENT.Information = "German World War 2 Drive Bomber"
 ENT.Category = "[LVS] - Planes"
@@ -26,7 +26,7 @@ ENT.ForceLinearMultiplier = 1
 ENT.ForceAngleMultiplier = 1
 ENT.ForceAngleDampingMultiplier = 1
 
-ENT.MaxSlipAnglePitch = 10
+ENT.MaxSlipAnglePitch = 20
 ENT.MaxSlipAngleYaw = 10
 
 ENT.MaxHealth = 650
@@ -64,10 +64,10 @@ function ENT:InitWeapons()
 
 	local weapon = {}
 	weapon.Icon = Material("lvs/weapons/bomb.png")
-	weapon.Ammo = 12
+	weapon.Ammo = 1
 	weapon.Delay = 0
 	weapon.HeatRateUp = 0
-	weapon.HeatRateDown = 0
+	weapon.HeatRateDown = 1
 	weapon.StartAttack = function( ent )
 		local Driver = ent:GetDriver()
 
@@ -86,7 +86,17 @@ function ENT:InitWeapons()
 	end
 	weapon.FinishAttack = function( ent )
 		if not IsValid( ent._ProjectileEntity ) then return end
+
 		ent._ProjectileEntity:Enable()
+
+		timer.Simple(0.1, function()
+			if not IsValid( ent ) then return end
+			ent:SetBodygroup( 6, 0 )
+		end)
+
+		ent:TakeAmmo()
+		ent:SetHeat( 1 )
+		ent:SetOverheated( true )
 	end
 	self:AddWeapon( weapon )
 
