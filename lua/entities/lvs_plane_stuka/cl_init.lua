@@ -124,6 +124,11 @@ function ENT:AnimControlSurfaces( frametime )
 	self:ManipulateBoneAngles( 1, Angle(self.smPitch,0,0) )
 
 	self:ManipulateBoneAngles( 2, Angle( self.smYaw,0,0 ) )
+
+	self.smAirBrake = self.smAirBrake and self.smAirBrake + ((self:GetAirBrake() and 1 or 0) - self.smAirBrake) * FT * 1 or 0
+
+	self:ManipulateBoneAngles( 6, Angle(-90 * self.smAirBrake,0,0 ) )
+	self:ManipulateBoneAngles( 11, Angle(90 * self.smAirBrake,0,0 ) )
 end
 
 function ENT:AnimLandingGear( frametime )

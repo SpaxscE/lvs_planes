@@ -80,3 +80,21 @@ end
 function ENT:OnMaintenance()
 	self:SetBodygroup( 6, 1 )
 end
+
+function ENT:HandleAirBrake()
+	if not self:GetAirBrake() then return end
+
+	local PhysObj = self:GetPhysicsObject()
+
+	if not IsValid( PhysObj ) then return end
+
+	local Vel = PhysObj:GetVelocity()
+
+	local Mul = math.max( Vel:Length() - self.MaxVelocity, 0 ) / 15000
+
+	PhysObj:ApplyForceCenter( -Vel * PhysObj:GetMass() * FrameTime() * Mul )
+end
+
+function ENT:OnTick()
+	self:HandleAirBrake()
+end

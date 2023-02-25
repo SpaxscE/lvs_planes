@@ -26,13 +26,14 @@ ENT.ForceLinearMultiplier = 1
 ENT.ForceAngleMultiplier = 1
 ENT.ForceAngleDampingMultiplier = 1
 
-ENT.MaxSlipAnglePitch = 20
+ENT.MaxSlipAnglePitch = 10
 ENT.MaxSlipAngleYaw = 10
 
 ENT.MaxHealth = 650
 
 function ENT:OnSetupDataTables()
 	self:AddDT( "Entity", "GunnerSeat" )
+	self:AddDT( "Bool", "AirBrake" )
 end
 
 function ENT:SetPoseParameterMG( weapon )
@@ -99,6 +100,32 @@ function ENT:InitWeapons()
 		ent:SetOverheated( true )
 	end
 	self:AddWeapon( weapon )
+
+
+	local weapon = {}
+	weapon.Icon = Material("lvs/weapons/stuka_airbrake.png")
+	weapon.UseableByAI = false
+	weapon.Ammo = -1
+	weapon.Delay = 0
+	weapon.HeatRateUp = 0
+	weapon.HeatRateDown = 1
+	weapon.StartAttack = function( ent )
+		if not ent.SetAirBrake then return end
+
+		if ent:GetAI() then return end
+
+		ent:SetAirBrake( not ent:GetAirBrake() )
+
+		if ent:GetAirBrake() then
+			ent:EmitSound( "npc/dog/dog_pneumatic1.wav", 75, 100 )
+			ent.MaxSlipAnglePitch = 20
+		else
+			ent:EmitSound( "ambient/materials/shutter8.wav", 75, 100 )
+			ent.MaxSlipAnglePitch = 10
+		end
+	end
+	self:AddWeapon( weapon )
+
 
 
 	local COLOR_RED = Color(255,0,0,255)
