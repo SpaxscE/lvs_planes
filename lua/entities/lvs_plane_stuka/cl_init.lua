@@ -1,6 +1,16 @@
 include("shared.lua")
 include( "cl_prediction.lua" )
 
+DEFINE_BASECLASS( "lvs_base_fighterplane" )
+
+function ENT:LVSHudPaintInfoText( X, Y, W, H, ScrX, ScrY, ply )
+	BaseClass.LVSHudPaintInfoText( self, X, Y, W, H, ScrX, ScrY, ply )
+
+	if not self:GetAirBrake() then return end
+
+	draw.SimpleText( "!!Air Brake!!" , "LVS_FONT",  X, Y, Color(255,0,0,math.abs( math.cos( CurTime() * 5) ) * 255 ), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER )
+end
+
 function ENT:OnEngineActiveChanged( Active )
 	if Active then
 		self:StartJericho()
