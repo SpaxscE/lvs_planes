@@ -1,4 +1,5 @@
 include("shared.lua")
+include( "cl_prediction.lua" )
 
 function ENT:OnEngineActiveChanged( Active )
 	if Active then
@@ -48,6 +49,7 @@ function ENT:OnFrame()
 	self:AnimLandingGear( FT )
 	self:AnimRotor( FT )
 	self:AnimJerichos( FT )
+	self:PredictPoseParamaters()
 end
 
 function ENT:AnimRotor( frametime )

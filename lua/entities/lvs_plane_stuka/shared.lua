@@ -31,6 +31,24 @@ ENT.MaxSlipAngleYaw = 10
 
 ENT.MaxHealth = 650
 
+function ENT:OnSetupDataTables()
+	self:AddDT( "Entity", "GunnerSeat" )
+end
+
+function ENT:SetPoseParameterMG( weapon )
+	local ID = self:LookupAttachment( "mg" )
+	local MG = self:GetAttachment( ID )
+
+	if not MG then return end
+
+	local trace = weapon:GetEyeTrace()
+
+	local _,Ang = WorldToLocal( Vector(0,0,0), (trace.HitPos - MG.Pos):GetNormalized():Angle(), Vector(0,0,0), self:LocalToWorldAngles( Angle(0,180,0) ) )
+
+	self:SetPoseParameter("mg_pitch", Ang.p )
+	self:SetPoseParameter("mg_yaw", Ang.y )
+end
+
 function ENT:InitWeapons()
 	self.PosLMG = Vector(27.94,81.46,79.95)
 	self.DirLMG = 0.65
@@ -70,8 +88,126 @@ function ENT:InitWeapons()
 		if not IsValid( ent._ProjectileEntity ) then return end
 		ent._ProjectileEntity:Enable()
 	end
-
 	self:AddWeapon( weapon )
+
+
+	local COLOR_RED = Color(255,0,0,255)
+	local COLOR_WHITE = Color(255,255,255,255)
+	self.RearGunAngleRange = 30
+
+	local weapon = {}
+	weapon.Icon = Material("lvs/weapons/mg.png")
+	weapon.Ammo = -1
+	weapon.Delay = 0.15
+	weapon.Attack = function( ent )
+		local base = ent:GetVehicle()
+
+		if not IsValid( base ) then return end
+
+		local ID = base:LookupAttachment( "mg_muzzle" )
+		local Muzzle = base:GetAttachment( ID )
+
+		if not Muzzle then return end
+
+		local RearGunInRange = ent:AngleBetweenNormal( ent:GetAimVector(), ent:GetForward() ) < base.RearGunAngleRange
+
+		if not RearGunInRange then
+			if IsValid( base.SNDTurret ) then
+				base.SNDTurret:Stop()
+			end
+
+			return true
+		else
+			if IsValid( base.SNDTurret ) then
+				base.SNDTurret:Play()
+			end
+		end
+
+		local trace = ent:GetEyeTrace()
+
+		local effectdata = EffectData()
+		effectdata:SetOrigin( Muzzle.Pos )
+		effectdata:SetNormal( -Muzzle.Ang:Right() )
+		effectdata:SetEntity( base )
+		util.Effect( "lvs_muzzle", effectdata )
+
+		local bullet = {}
+		bullet.Src = Muzzle.Pos
+		bullet.Dir = (trace.HitPos - Muzzle.Pos):GetNormalized()
+		bullet.Spread 	= Vector( 0.03,  0.03, 0.03 )
+		bullet.TracerName = "lvs_tracer_yellow"
+		bullet.Force	= 10
+		bullet.HullSize 	= 25
+		bullet.Damage	= 45
+		bullet.Velocity = 30000
+		bullet.Attacker 	= ent:GetDriver()
+		bullet.Callback = function(att, tr, dmginfo) end
+		ent:LVSFireBullet( bullet )
+
+		ent:TakeAmmo()
+	end
+	weapon.StartAttack = function( ent )
+		local base = ent:GetVehicle()
+
+		if not IsValid( base ) or not IsValid( base.SNDTurret ) then return end
+
+		base.SNDTurret:Play()
+	end
+	weapon.FinishAttack = function( ent )
+		local base = ent:GetVehicle()
+
+		if not IsValid( base ) or not IsValid( base.SNDTurret ) then return end
+
+		base.SNDTurret:Stop()
+	end
+	weapon.OnOverheat = function( ent ) ent:EmitSound("lvs/overheat.wav") end
+	weapon.OnThink = function( ent, active )
+		local base = ent:GetVehicle()
+
+		if not IsValid( base ) then return end
+
+		base:SetPoseParameterMG( ent )
+	end
+	weapon.CalcView = function( ent, ply, pos, angles, fov, pod )
+		local base = ent:GetVehicle()
+
+		if not IsValid( base ) then 
+			return LVS:CalcView( ent, ply, pos, angles, fov, pod )
+		end
+
+		local TargetZoom = ply:lvsKeyDown( "ZOOM" ) and 1 or 0
+
+		ent.smZoom = ent.smZoom and (ent.smZoom + (TargetZoom - ent.smZoom) * RealFrameTime() * 10) or 0
+
+		if pod:GetThirdPersonMode() then
+			pos = pos + base:GetUp() * 100
+		else
+			local ID = base:LookupAttachment( "mg" )
+			local MG = base:GetAttachment( ID )
+
+			if MG then
+				pos = MG.Pos + MG.Ang:Up() * (8 - 4.5 * ent.smZoom) - MG.Ang:Forward() * (20 - 15 * ent.smZoom)
+			end
+		end
+
+		return LVS:CalcView( base, ply, pos, angles, fov, pod )
+	end
+	weapon.HudPaint = function( ent, X, Y, ply )
+		local base = ent:GetVehicle()
+
+		if not IsValid( base ) then return end
+
+		local RearGunInRange = ent:AngleBetweenNormal( ent:GetAimVector(), ent:GetForward() ) < base.RearGunAngleRange
+
+		local Col = RearGunInRange and COLOR_WHITE or COLOR_RED
+
+		local Pos2D = ent:GetEyeTrace().HitPos:ToScreen() 
+
+		base:PaintCrosshairCenter( Pos2D, Col )
+		base:PaintCrosshairOuter( Pos2D, Col )
+		base:LVSPaintHitMarker( Pos2D )
+	end
+	self:AddWeapon( weapon, 2 )
 end
 
 ENT.FlyByAdvance = 0.8

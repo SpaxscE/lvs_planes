@@ -1,5 +1,6 @@
 AddCSLuaFile( "shared.lua" )
 AddCSLuaFile( "cl_init.lua" )
+AddCSLuaFile( "cl_prediction.lua" )
 include("shared.lua")
 
 ENT.WheelAutoRetract = true
@@ -8,7 +9,7 @@ function ENT:OnSpawn( PObj )
 	PObj:SetMass( 2000 )
 
 	self:AddDriverSeat( Vector(-23,-1.9,95.5), Angle(0,-90,0) )
-	self:AddPassengerSeat( Vector(-65,0,90), Angle(0,90,0) )
+	self:SetGunnerSeat( self:AddPassengerSeat( Vector(-65,0,90), Angle(0,90,0) ) )
 
 	self:AddWheel( Vector(22,60,15.16), 16, 400 )
 	self:AddWheel( Vector(22,-60,15.16), 16, 400 )
@@ -52,6 +53,12 @@ function ENT:OnSpawn( PObj )
 			self:AddExhaust( pos, ang )
 		end
 	end
+
+	local ID = self:LookupAttachment( "mg_muzzle" )
+	local Muzzle = self:GetAttachment( ID )
+	self.SNDTurret = self:AddSoundEmitter( self:WorldToLocal( Muzzle.Pos ), "lvs/weapons/stuka_mg_loop.wav", "lvs/weapons/stuka_mg_loop_interior.wav" )
+	self.SNDTurret:SetSoundLevel( 95 )
+	self.SNDTurret:SetParent( self, ID )
 end
 
 function ENT:OnEngineActiveChanged( Active )
