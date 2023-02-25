@@ -13,7 +13,7 @@ function ENT:OnSpawn( PObj )
 
 	self:AddWheel( Vector(22,60,15.16), 16, 400 )
 	self:AddWheel( Vector(22,-60,15.16), 16, 400 )
-	self:AddWheel( Vector(-270,0,70), 10, 400, LVS.WHEEL_STEER_REAR )
+	self:AddWheel( Vector(-270,0,70), 10, 250, LVS.WHEEL_STEER_REAR )
 
 	self:AddEngine( Vector(75,0,92) )
 
