@@ -17,7 +17,9 @@ function ENT:OnSpawn( PObj )
 
 	self:AddEngine( Vector(75,0,92) )
 
-	self:AddRotor( Vector(135,0,92) )	
+	local Rotor = self:AddRotor( Vector(135,0,92) )	
+	Rotor:SetSound("lvs/vehicles/generic/bomber_propeller.wav")
+	Rotor:SetSoundStrain("lvs/vehicles/generic/bomber_propeller_strain.wav")
 
 	local Exhaust = {
 		{
