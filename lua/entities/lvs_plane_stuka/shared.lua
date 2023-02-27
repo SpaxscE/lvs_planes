@@ -3,7 +3,7 @@ ENT.Base = "lvs_base_fighterplane"
 
 ENT.PrintName = "Ju-87"
 ENT.Author = "Luna"
-ENT.Information = "German World War 2 Drive Bomber"
+ENT.Information = "German World War 2 Dive Bomber"
 ENT.Category = "[LVS] - Planes"
 
 ENT.Spawnable			= true
