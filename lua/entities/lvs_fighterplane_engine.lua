@@ -143,6 +143,12 @@ function ENT:OnEngineActiveChanged( Active )
 		for _, ent in pairs( LVS:GetVehicles() ) do
 			if ent.Base ~= "lvs_base_fighterplane" or not ent:GetEngineActive() then continue end
 
+			if ent:GetAI() then
+				ActivePlanesInRange = ActivePlanesInRange + 1
+
+				continue
+			end
+
 			if (ent:GetPos() - ViewPos):Length() > 1000 then continue end
 
 			ActivePlanesInRange = ActivePlanesInRange + 1
