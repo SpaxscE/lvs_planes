@@ -57,12 +57,23 @@ end
 function ENT:OnFrame()
 	local FT = RealFrameTime()
 
+	self:AnimCabin( FT )
 	self:AnimControlSurfaces( FT )
 	self:AnimLandingGear( FT )
 	self:AnimRotor( FT )
 	self:AnimJerichos( FT )
 	self:AnimBombLauncher( FT )
 	self:PredictPoseParamaters()
+end
+
+function ENT:AnimCabin( frametime )
+	local TVal = self:GetActive() and 0 or 1
+
+	local Speed = frametime * 4
+
+	self.SMcOpen = self.SMcOpen and self.SMcOpen + math.Clamp(TVal - self.SMcOpen,-Speed,Speed) or 0
+
+	self:ManipulateBonePosition( 18, Vector(0,0,-self.SMcOpen * 20) )
 end
 
 function ENT:AnimBombLauncher( frametime )
