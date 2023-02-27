@@ -134,7 +134,22 @@ function ENT:OnEngineActiveChanged( Active )
 	if not Active then self:StopSounds() end
 
 	local ply = LocalPlayer()
-	local DrivingMe = ply:lvsGetVehicle() == self:GetBase() or table.Count( LVS:GetVehicles() ) <= 1
+	local ViewPos = ply:GetViewEntity():GetPos()
+	local veh = ply:lvsGetVehicle()
+
+	local ActivePlanesInRange = 0
+
+	if not IsValid( veh ) then
+		for _, ent in pairs( LVS:GetVehicles() ) do
+			if ent.Base ~= "lvs_base_fighterplane" or not ent:GetEngineActive() then continue end
+
+			if (ent:GetPos() - ViewPos):Length() > 1000 then continue end
+
+			ActivePlanesInRange = ActivePlanesInRange + 1
+		end
+	end
+
+	local DrivingMe = veh == self:GetBase() or ActivePlanesInRange <= 1
 
 	for id, data in pairs( self.EngineSounds ) do
 		if not isstring( data.sound ) then continue end
