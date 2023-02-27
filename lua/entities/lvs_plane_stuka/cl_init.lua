@@ -35,6 +35,8 @@ function ENT:OnFrameActive()
 end
 
 function ENT:StartJericho()
+	if self:GetMutedJericho() then return end
+
 	self._Jericho = CreateSound( self, "lvs/vehicles/stuka/jericho.wav" )
 	self._Jericho:SetSoundLevel( 140 )
 	self._Jericho:PlayEx(0,100)

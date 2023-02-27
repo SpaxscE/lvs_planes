@@ -34,6 +34,7 @@ ENT.MaxHealth = 650
 function ENT:OnSetupDataTables()
 	self:AddDT( "Entity", "GunnerSeat" )
 	self:AddDT( "Bool", "AirBrake" )
+	self:AddDT( "Bool", "MutedJericho",	{ KeyName = "mutedjericho",	Edit = { type = "Boolean",	order = 3,	category = "Misc"} } )
 end
 
 function ENT:SetPoseParameterMG( weapon )
