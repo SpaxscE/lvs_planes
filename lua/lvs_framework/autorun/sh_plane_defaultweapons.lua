@@ -128,7 +128,7 @@ LVS:AddWeaponPreset( "HMG", {
 		bullet.TracerName = "lvs_tracer_orange"
 		bullet.Force	= 50
 		bullet.HullSize 	= 15
-		bullet.Damage	= 75
+		bullet.Damage	= 45
 		bullet.SplashDamage = 75
 		bullet.SplashDamageRadius = 200
 		bullet.Velocity = 15000
