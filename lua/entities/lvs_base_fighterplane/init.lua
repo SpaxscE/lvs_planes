@@ -10,6 +10,7 @@ include("sv_wheels.lua")
 include("sv_landinggear.lua")
 include("sv_components.lua")
 include("sv_ai.lua")
+include("sv_mouseaim.lua")
 include("sh_camera_eyetrace.lua")
 
 function ENT:OnCreateAI()
@@ -69,6 +70,18 @@ function ENT:ApproachTargetAngle( TargetAngle, OverridePitch, OverrideYaw, Overr
 end
 
 function ENT:CalcAero( phys, deltatime )
+	-- mouse aim needs to run at high speed.
+	if self:GetAI() then
+		if self._lvsAITargetAng then
+			self:ApproachTargetAngle( self._lvsAITargetAng )
+		end
+	else
+		local ply = self:GetDriver()
+		if IsValid( ply ) and ply:lvsMouseAim() then
+			self:PlayerMouseAim( ply )
+		end
+	end
+
 	local WorldGravity = self:GetWorldGravity()
 	local WorldUp = self:GetWorldUp()
 	local Steer = self:GetSteer()
