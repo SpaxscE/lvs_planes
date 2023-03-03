@@ -38,7 +38,6 @@ ENT._oldEnActive = false
 ENT._ActiveSounds = {}
 
 function ENT:Initialize()
-	print( self._ActiveSounds )
 end
 
 function ENT:StopSounds()
