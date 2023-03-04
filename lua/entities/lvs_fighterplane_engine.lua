@@ -145,7 +145,9 @@ function ENT:OnEngineActiveChanged( Active )
 
 	local ActivePlanesInRange = 0
 
-	if not IsValid( veh ) then
+	if IsValid( veh ) then
+		ActivePlanesInRange = 999
+	else
 		for _, ent in pairs( LVS:GetVehicles() ) do
 			if ent.Base ~= "lvs_base_fighterplane" or not ent:GetEngineActive() then continue end
 
