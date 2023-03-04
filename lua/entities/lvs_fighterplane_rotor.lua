@@ -81,6 +81,8 @@ function ENT:HandleSounds( vehicle, rpm, throttle )
 	local pitch2 = 100 - rotor_load * 50 * throttle
 	local volume2 = math.max(-rotor_load,0) * mul * throttle ^ 2
 
+	local fadespeed = 2
+
 	local ply = LocalPlayer()
 	if IsValid( ply ) and ply:lvsGetVehicle() == vehicle then
 		local pod = ply:GetVehicle()
@@ -88,12 +90,13 @@ function ENT:HandleSounds( vehicle, rpm, throttle )
 			if vehicle:HasActiveSoundEmitters() then
 				volume = volume * 0.25
 				volume2 = volume2 * 0.25
+				fadespeed = 0.5
 			end
 		end
 	end
 	
 	if self._RotorSound1 then
-		self._RotorSound1:ChangeVolume( volume, 2 )
+		self._RotorSound1:ChangeVolume( volume, fadespeed )
 		self._RotorSound1:ChangePitch( pitch, 0.5 )
 	end
 
