@@ -28,7 +28,7 @@ function ENT:OnFrameActive()
 
 	local volume = math.Clamp((self:GetVelocity():Length() - self.MaxVelocity) / 500,0,1)
 
-	local pitch = 100 * self:CalcDoppler( LocalPlayer() ) * (0.75 + 0.25 * volume)
+	local pitch = 110 * self:CalcDoppler( LocalPlayer() ) * (0.75 + 0.25 * volume)
 
 	self._Jericho:ChangeVolume( volume, 1 )
 	self._Jericho:ChangePitch( pitch, 1 )
