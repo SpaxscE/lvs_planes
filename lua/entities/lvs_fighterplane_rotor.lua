@@ -85,6 +85,14 @@ function ENT:HandleSounds( vehicle, rpm, throttle )
 
 	local ply = LocalPlayer()
 	if IsValid( ply ) and ply:lvsGetVehicle() == vehicle then
+	
+		-- remove annoying ear rape. TODO: needs a smarter method
+		if InfMap then
+			if (ply.CHUNK_OFFSET or Vector(0,0,0)):Length() > 1 then
+				volume2 = 0
+			end
+		end
+
 		local pod = ply:GetVehicle()
 		if not pod:GetThirdPersonMode() then
 			if vehicle:HasActiveSoundEmitters() then
