@@ -122,7 +122,7 @@ function ENT:CalcAero( phys, deltatime )
 			StallPitch = PitchPull* GravMul * StallMul
 			StallYaw = YawPull * GravMul * StallMul
 		else
-			local StallPitchDir = self:Sign( math.deg( math.acos( math.Clamp( -VelForward:Dot( Up ) ,-1,1) ) ) - 90 )
+			local StallPitchDir = self:Sign( math.deg( math.acos( math.Clamp( -VelForward:Dot( self:LocalToWorldAngles( Angle(-10,0,0) ):Up() ) ,-1,1) ) ) - 90 )
 			local StallYawDir =  self:Sign( math.deg( math.acos( math.Clamp( -VelForward:Dot( Left ) ,-1,1) ) ) - 90 )
 
 			local StallPitchPull = ((90 - math.abs( math.deg( math.acos( math.Clamp( -WorldUp:Dot( Up ) ,-1,1) ) ) - 90 )) / 90) * StallPitchDir
