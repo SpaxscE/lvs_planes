@@ -26,12 +26,23 @@ end
 function ENT:OnFrameActive()
 	if not self._Jericho then return end
 
+	local ply = LocalPlayer()
+
+	if not IsValid( ply ) then return end
+
 	local volume = math.Clamp((self:GetVelocity():Length() - self.MaxVelocity) / 500,0,1)
 
-	local pitch = 110 * self:CalcDoppler( LocalPlayer() ) * (0.75 + 0.25 * volume)
+	local pitch = 110 * self:CalcDoppler( ply ) * (0.75 + 0.25 * volume)
 
-	self._Jericho:ChangeVolume( volume, 1 )
-	self._Jericho:ChangePitch( pitch, 1 )
+	if ply:GetViewEntity() == ply and ply:lvsGetVehicle() == self then
+		self._Jericho:ChangeVolume( volume, 1 )
+		self._Jericho:ChangePitch( pitch, 1 )
+	else
+		self._smJerVolume = self._smJerVolume and (self._smJerVolume + math.Clamp(volume - self._smJerVolume,-0.25,1) * FrameTime() * 2) or 0
+
+		self._Jericho:ChangeVolume( self._smJerVolume, 0.2 )
+		self._Jericho:ChangePitch( pitch, 0.4 )
+	end
 end
 
 function ENT:StartJericho()
