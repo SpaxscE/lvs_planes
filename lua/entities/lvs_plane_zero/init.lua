@@ -5,7 +5,7 @@ include("shared.lua")
 function ENT:OnSpawn( PObj )
 	PObj:SetMass( 5000 )
 
-	self:AddDriverSeat( Vector(1,0,71.5), Angle(0,-90,0) )
+	self:AddDriverSeat( Vector(1,0,71.2), Angle(0,-90,0) )
 
 	self:AddWheel( Vector(42,75,10), 10, 300 )
 	self:AddWheel( Vector(42,-75,10), 10, 300 )
