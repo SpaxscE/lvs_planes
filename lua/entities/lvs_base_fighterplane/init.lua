@@ -142,8 +142,10 @@ function ENT:CalcAero( phys, deltatime )
 
 	local VelL = self:WorldToLocal( self:GetPos() + Vel )
 
-	local MulZ = (math.max( math.deg( math.acos( math.Clamp( VelForward:Dot( Forward ) ,-1,1) ) ) - self.MaxSlipAnglePitch * math.abs( Steer.y ), 0 ) / 90) * 0.3
-	local MulY = (math.max( math.abs( math.deg( math.acos( math.Clamp( VelForward:Dot( Left ) ,-1,1) ) ) - 90 ) - self.MaxSlipAngleYaw * math.abs( Steer.z ), 0 ) / 90) * 0.15
+	local SlipMul = 1 - math.Clamp( math.max( math.abs( VelL.x ) - self.MaxPerfVelocity, 0 ) / math.max(self.MaxVelocity - self.MaxPerfVelocity, 0 ),0,1)
+
+	local MulZ = (math.max( math.deg( math.acos( math.Clamp( VelForward:Dot( Forward ) ,-1,1) ) ) - self.MaxSlipAnglePitch * SlipMul * math.abs( Steer.y ), 0 ) / 90) * 0.3
+	local MulY = (math.max( math.abs( math.deg( math.acos( math.Clamp( VelForward:Dot( Left ) ,-1,1) ) ) - 90 ) - self.MaxSlipAngleYaw * SlipMul * math.abs( Steer.z ), 0 ) / 90) * 0.15
 
 	local Lift = -math.min( (math.deg( math.acos( math.Clamp( WorldUp:Dot( Up ) ,-1,1) ) ) - 90) / 180,0) * (WorldGravity / (1 / deltatime))
 
