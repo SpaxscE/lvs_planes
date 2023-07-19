@@ -24,7 +24,7 @@ LVS:AddWeaponPreset( "LMG", {
 		bullet.TracerName = "lvs_tracer_white"
 		bullet.Force	= 10
 		bullet.HullSize 	= 50
-		bullet.Damage	= 10
+		bullet.Damage	= 35
 		bullet.Velocity = 30000
 		bullet.Attacker 	= ent:GetDriver()
 		bullet.Callback = function(att, tr, dmginfo) end
@@ -77,7 +77,7 @@ LVS:AddWeaponPreset( "TABLE_POINT_MG", {
 			bullet.TracerName = "lvs_tracer_yellow"
 			bullet.Force	= 10
 			bullet.HullSize 	= 25
-			bullet.Damage	= 10
+			bullet.Damage	= 35
 			bullet.Velocity = 40000
 			bullet.Attacker 	= ent:GetDriver()
 			bullet.Callback = function(att, tr, dmginfo) end
