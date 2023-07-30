@@ -5,7 +5,6 @@ ENT.Type            = "anim"
 ENT.Spawnable       = false
 ENT.AdminSpawnable  = false
 ENT.DoNotDuplicate = true
-ENT.lvsDoNotGrab = true
 
 if SERVER then
 	function ENT:Initialize()	
@@ -14,6 +13,8 @@ if SERVER then
 		self:SetMoveType( MOVETYPE_VPHYSICS )
 		self:SetSolid( SOLID_VPHYSICS )
 		self:DrawShadow( false )
+
+		self:AddEFlags( EFL_NO_PHYSCANNON_INTERACTION )
 	end
 
 	function ENT:SetBrakes( active )
