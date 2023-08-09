@@ -10,7 +10,7 @@ function ENT:OnSpawn( PObj )
 
 	local DriverSeat = self:AddDriverSeat( Vector(1,0,71.2), Angle(0,-90,0) )
 
-	local DoorHandler = self:AddDoorHandler( "!cabin", Vector(0,0,100), Angle(0,0,0), Vector(-20,-20,-20), Vector(20,20,20), Vector(-40,-20,-20), Vector(20,20,20) )
+	local DoorHandler = self:AddDoorHandler( "!cabin" )
 	DoorHandler:SetSoundOpen( "vehicles/atv_ammo_open.wav" )
 	DoorHandler:SetSoundClose( "vehicles/atv_ammo_close.wav"  )
 	DoorHandler:LinkToSeat( DriverSeat )
