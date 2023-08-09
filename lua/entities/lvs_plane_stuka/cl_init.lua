@@ -63,28 +63,19 @@ end
 function ENT:OnSpawn()
 	self:RegisterTrail( Vector(-22.64,277.91,99.35), 0, 20, 2, 1000, 600 )
 	self:RegisterTrail( Vector(-22.64,-277.91,99.35), 0, 20, 2, 1000, 600 )
+
+	self:CreateBonePoseParameter( "cabin", 18, Angle(0,0,0), Angle(0,0,0), Vector(0,0,0), Vector(0,0,-20) )
 end
 
 function ENT:OnFrame()
 	local FT = RealFrameTime()
 
-	self:AnimCabin( FT )
 	self:AnimControlSurfaces( FT )
 	self:AnimLandingGear( FT )
 	self:AnimRotor( FT )
 	self:AnimJerichos( FT )
 	self:AnimBombLauncher( FT )
 	self:PredictPoseParamaters()
-end
-
-function ENT:AnimCabin( frametime )
-	local TVal = self:GetActive() and 0 or 1
-
-	local Speed = frametime * 4
-
-	self.SMcOpen = self.SMcOpen and self.SMcOpen + math.Clamp(TVal - self.SMcOpen,-Speed,Speed) or 0
-
-	self:ManipulateBonePosition( 18, Vector(0,0,-self.SMcOpen * 20) )
 end
 
 function ENT:AnimBombLauncher( frametime )

@@ -5,11 +5,19 @@ include("shared.lua")
 
 ENT.WheelAutoRetract = true
 
+ENT.DriverActiveSound = "common/null.wav"
+ENT.DriverInActiveSound = "common/null.wav"
+
 function ENT:OnSpawn( PObj )
 	PObj:SetMass( 2000 )
 
-	self:AddDriverSeat( Vector(-23,-1.9,95.5), Angle(0,-90,0) )
+	local DriverSeat = self:AddDriverSeat( Vector(-23,-1.9,95.5), Angle(0,-90,0) )
 	self:SetGunnerSeat( self:AddPassengerSeat( Vector(-65,0,90), Angle(0,90,0) ) )
+
+	local DoorHandler = self:AddDoorHandler( "!cabin", Vector(-25,0,122), Angle(0,0,0), Vector(-20,-20,-20), Vector(20,20,20), Vector(-40,-20,-20), Vector(20,20,20) )
+	DoorHandler:SetSoundOpen( "vehicles/atv_ammo_open.wav" )
+	DoorHandler:SetSoundClose( "vehicles/atv_ammo_close.wav"  )
+	DoorHandler:LinkToSeat( DriverSeat )
 
 	self:AddWheel( Vector(22,60,15.16), 16, 400 )
 	self:AddWheel( Vector(22,-60,15.16), 16, 400 )
