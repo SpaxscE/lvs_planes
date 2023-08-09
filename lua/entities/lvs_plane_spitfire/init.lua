@@ -2,10 +2,18 @@ AddCSLuaFile( "shared.lua" )
 AddCSLuaFile( "cl_init.lua" )
 include("shared.lua")
 
+ENT.DriverActiveSound = "common/null.wav"
+ENT.DriverInActiveSound = "common/null.wav"
+
 function ENT:OnSpawn( PObj )
 	PObj:SetMass( 5000 )
 
-	self:AddDriverSeat( Vector(29,0,61), Angle(0,-90,0) )
+	local DriverSeat = self:AddDriverSeat( Vector(29,0,61), Angle(0,-90,0) )
+
+	local DoorHandler = self:AddDoorHandler( "!cabin", Vector(25,0,85), Angle(0,0,0), Vector(-15,-15,-15), Vector(15,15,15), Vector(-30,-15,-15), Vector(15,15,15) )
+	DoorHandler:SetSoundOpen( "vehicles/atv_ammo_open.wav" )
+	DoorHandler:SetSoundClose( "vehicles/atv_ammo_close.wav"  )
+	DoorHandler:LinkToSeat( DriverSeat )
 
 	self:AddWheel( Vector(80.28,45,11.05), 10, 300 )
 	self:AddWheel( Vector(80.28,-45,11.05), 10, 300 )
