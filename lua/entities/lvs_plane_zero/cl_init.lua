@@ -3,6 +3,8 @@ include("shared.lua")
 function ENT:OnSpawn()
 	self:RegisterTrail( Vector(14.5,230.5,84.5), 0, 20, 2, 1000, 400 )
 	self:RegisterTrail( Vector(14.5,-230.5,84.5), 0, 20, 2, 1000, 400 )
+
+	self:CreateBonePoseParameter( "cabin", 1, Angle(0,0,0), Angle(0,0,0), Vector(0,0,0), Vector(0,1.5,-27) )
 end
 
 function ENT:OnFrame()
@@ -10,7 +12,6 @@ function ENT:OnFrame()
 
 	self:AnimControlSurfaces( FT )
 	self:AnimLandingGear( FT )
-	self:AnimCabin( FT )
 	self:AnimRotor( FT )
 end
 
@@ -47,18 +48,6 @@ function ENT:AnimControlSurfaces( frametime )
 	self:ManipulateBoneAngles( 5, Angle( 0,0,-self.smPitch) )
 	
 	self:ManipulateBoneAngles( 11, Angle( 0,self.smYaw,0 ) )
-end
-
-function ENT:AnimCabin( frametime )
-	local bOn = self:GetActive()
-	
-	local TVal = bOn and 0 or 1
-	
-	local Speed = frametime * 4
-	
-	self.SMcOpen = self.SMcOpen and self.SMcOpen + math.Clamp(TVal - self.SMcOpen,-Speed,Speed) or 0
-
-	self:ManipulateBonePosition( 1, Vector(0,1.5 * self.SMcOpen,-27) * self.SMcOpen ) 
 end
 
 function ENT:AnimLandingGear( frametime )
