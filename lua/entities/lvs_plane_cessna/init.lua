@@ -5,17 +5,36 @@ include("shared.lua")
 ENT.WheelSteerAngle = 20
 ENT.WheelAutoRetract = true
 
+ENT.DriverActiveSound = "common/null.wav"
+ENT.DriverInActiveSound = "common/null.wav"
+
 function ENT:OnSpawn( PObj )
 	PObj:SetMass( 1000 )
 
-	self:AddDriverSeat( Vector(5,8,38), Angle(0,-90,0) )
+	local DriverSeat = self:AddDriverSeat( Vector(5,8,38), Angle(0,-90,0) )
+	local PassengerSeat = self:AddPassengerSeat( Vector(5,-8,38), Angle(0,-90,0) )
+	self:AddPassengerSeat( Vector(-35,-8,38), Angle(0,-90,0) )
+	self:AddPassengerSeat( Vector(-35,8,38), Angle(0,-90,0) )
 
-	for _, Pos in pairs( { Vector(5,-8,38), Vector(-35,-8,38), Vector(-35,8,38) } ) do
-		self:AddPassengerSeat( Pos, Angle(0,-90,0) )
-	end
+	local mins = self:OBBMins()
+	local maxs = self:OBBMaxs()
 
-	self:AddWheel( Vector(-100,100,10), 15, 40 )
-	self:AddWheel( Vector(-100,-100,10), 15, 40 )
+	local DoorHandler = self:AddDoorHandler( "left_door", vector_origin, angle_zero, Vector(mins.x,0,mins.z), maxs )
+	DoorHandler:SetSoundOpen( "vehicles/atv_ammo_open.wav" )
+	DoorHandler:SetSoundClose( "vehicles/atv_ammo_close.wav"  )
+	DoorHandler:LinkToSeat( DriverSeat )
+
+	local DoorHandler = self:AddDoorHandler( "right_door", vector_origin, angle_zero, mins, Vector(maxs.x,0,maxs.z) )
+	DoorHandler:SetSoundOpen( "vehicles/atv_ammo_open.wav" )
+	DoorHandler:SetSoundClose( "vehicles/atv_ammo_close.wav"  )
+	DoorHandler:LinkToSeat( PassengerSeat )
+
+	local Wheel = self:AddWheel( Vector(-100,100,10), 15, 40 )
+	Wheel:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
+	
+	local Wheel = self:AddWheel( Vector(-100,-100,10), 15, 40 )
+	Wheel:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
+
 	self:AddWheel( Vector(100,0,5), 15, 80, LVS.WHEEL_STEER_FRONT )
 
 	self:AddEngine( Vector(40,0,45) )

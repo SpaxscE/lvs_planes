@@ -22,7 +22,7 @@ function ENT:AnimRotor( frametime )
 
 	local Rot = Angle(0,0,self._rRPM)
 	Rot:Normalize() 
-	self:ManipulateBoneAngles( 7, Rot )
+	self:ManipulateBoneAngles( 9, Rot )
 
 	self:SetBodygroup( 1, PhysRot and 0 or 1 ) 
 end
