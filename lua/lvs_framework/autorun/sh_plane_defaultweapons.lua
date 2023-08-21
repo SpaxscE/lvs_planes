@@ -43,6 +43,7 @@ LVS:AddWeaponPreset( "LMG", {
 	FinishAttack = function( ent )
 		if IsValid( ent.SoundEmitter1 ) then
 			ent.SoundEmitter1:Stop()
+			ent.SoundEmitter1:EmitSound("lvs/weapons/mg_lastshot.wav")
 		end
 	end,
 	OnSelect = function( ent ) ent:EmitSound("physics/metal/weapon_impact_soft3.wav") end,
@@ -97,6 +98,7 @@ LVS:AddWeaponPreset( "TABLE_POINT_MG", {
 	FinishAttack = function( ent )
 		if IsValid( ent.SoundEmitter1 ) then
 			ent.SoundEmitter1:Stop()
+			ent.SoundEmitter1:EmitSound("lvs/weapons/mg_light_lastshot.wav")
 		end
 	end,
 	OnSelect = function( ent ) ent:EmitSound("physics/metal/weapon_impact_soft3.wav") end,
@@ -150,6 +152,7 @@ LVS:AddWeaponPreset( "HMG", {
 	FinishAttack = function( ent )
 		if IsValid( ent.SoundEmitter2 ) then
 			ent.SoundEmitter2:Stop()
+			ent.SoundEmitter2:EmitSound("lvs/weapons/mc_lastshot.wav")
 		end
 	end,
 	OnSelect = function( ent ) ent:EmitSound("physics/metal/weapon_impact_soft2.wav") end,
