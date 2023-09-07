@@ -107,6 +107,8 @@ function ENT:InitWeapons()
 		bullet.Velocity = 30000
 		bullet.SplashDamage = 100
 		bullet.SplashDamageRadius = 25
+		--bullet.SplashDamageEffect = "lvs_bullet_impact"
+		--bullet.SplashDamageType = DMG_SONIC
 		bullet.Attacker 	= ent:GetDriver()
 		bullet.Callback = function(att, tr, dmginfo) end
 
