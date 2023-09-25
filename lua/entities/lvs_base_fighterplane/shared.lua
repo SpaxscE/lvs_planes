@@ -173,3 +173,7 @@ function ENT:GetThrustStrenght()
 
 	return (self.MaxVelocity - ForwardVelocity) * self:GetThrottle() / self.MaxVelocity
 end
+
+function ENT:GetVehicleType()
+	return "plane"
+end
