@@ -139,11 +139,16 @@ function ENT:AddWheel( pos, radius, mass, type )
 	self:TransferCPPI( wheel )
 
 	if type == LVS.WHEEL_STEER_NONE then
-		self:TransferCPPI( constraint.AdvBallsocket(wheel, self,0,0,Vector(0,0,0),Vector(0,0,0),0,0, -180, -180, -180, 180, 180, 180, 0, 0, 0, 0, 1) )
+		local ballsocket = constraint.AdvBallsocket(wheel, self,0,0,Vector(0,0,0),Vector(0,0,0),0,0, -180, -180, -180, 180, 180, 180, 0, 0, 0, 0, 1)
+		ballsocket.DoNotDuplicate = true
+		self:TransferCPPI( ballsocket )
 	end
 
 	if type == LVS.WHEEL_BRAKE then
-		self:TransferCPPI( constraint.Axis( wheel, self, 0, 0, PhysObj:GetMassCenter(), wheel:GetPos(), 0, 0, 0, 0, Vector(1,0,0) , false ) )
+		local axis = constraint.Axis( wheel, self, 0, 0, PhysObj:GetMassCenter(), wheel:GetPos(), 0, 0, 0, 0, Vector(1,0,0) , false )
+		axis.DoNotDuplicate = true
+		self:TransferCPPI( axis )
+
 		wheel:SetBrakes( true )
 	end
 
@@ -152,8 +157,13 @@ function ENT:AddWheel( pos, radius, mass, type )
 
 		local SteerMaster = self:AddWheelSteeringPlate( false )
 
-		self:TransferCPPI( constraint.AdvBallsocket(wheel, SteerMaster,0,0,Vector(0,0,0),Vector(0,0,0),0,0, -180, -0.01, -0.01, 180, 0.01, 0.01, 0, 0, 0, 1, 0) )
-		self:TransferCPPI( constraint.AdvBallsocket(wheel,self,0,0,Vector(0,0,0),Vector(0,0,0),0,0, -180, -180, -180, 180, 180, 180, 0, 0, 0, 0, 0) )
+		local ballsocket1 = constraint.AdvBallsocket(wheel, SteerMaster,0,0,Vector(0,0,0),Vector(0,0,0),0,0, -180, -0.01, -0.01, 180, 0.01, 0.01, 0, 0, 0, 1, 0)
+		ballsocket1.DoNotDuplicate = true
+		self:TransferCPPI( ballsocket1 )
+
+		local ballsocket2 = constraint.AdvBallsocket(wheel,self,0,0,Vector(0,0,0),Vector(0,0,0),0,0, -180, -180, -180, 180, 180, 180, 0, 0, 0, 0, 0)
+		ballsocket2.DoNotDuplicate = true
+		self:TransferCPPI( ballsocket2 )
 	end
 
 	if type == LVS.WHEEL_STEER_REAR then
@@ -161,11 +171,19 @@ function ENT:AddWheel( pos, radius, mass, type )
 
 		local SteerMaster = self:AddWheelSteeringPlate( true )
 
-		self:TransferCPPI( constraint.AdvBallsocket(wheel, SteerMaster,0,0,Vector(0,0,0),Vector(0,0,0),0,0, -180, -0.01, -0.01, 180, 0.01, 0.01, 0, 0, 0, 1, 0) )
-		self:TransferCPPI( constraint.AdvBallsocket(wheel,self,0,0,Vector(0,0,0),Vector(0,0,0),0,0, -180, -180, -180, 180, 180, 180, 0, 0, 0, 0, 0) )
+		
+		local ballsocket1 = constraint.AdvBallsocket(wheel, SteerMaster,0,0,Vector(0,0,0),Vector(0,0,0),0,0, -180, -0.01, -0.01, 180, 0.01, 0.01, 0, 0, 0, 1, 0)
+		ballsocket1.DoNotDuplicate = true
+		self:TransferCPPI( ballsocket1 )
+
+		local ballsocket2 = constraint.AdvBallsocket(wheel,self,0,0,Vector(0,0,0),Vector(0,0,0),0,0, -180, -180, -180, 180, 180, 180, 0, 0, 0, 0, 0)
+		ballsocket2.DoNotDuplicate = true
+		self:TransferCPPI( ballsocket2 )
 	end
 
-	self:TransferCPPI( constraint.NoCollide( wheel, self, 0, 0 ) )
+	local nocollide = constraint.NoCollide( wheel, self, 0, 0 )
+	nocollide.DoNotDuplicate = true
+	self:TransferCPPI( nocollide )
 
 	PhysObj:EnableMotion( true )
 	PhysObj:EnableDrag( false ) 
