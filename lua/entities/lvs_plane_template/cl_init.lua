@@ -30,7 +30,7 @@ function ENT:PreDraw() -- function is called in ENT:Draw() right before self:Dra
 end
 
 function ENT:PreDrawTranslucent() -- function is called in ENT:DrawTranslucent() right before self:DrawModel() is called
-	return false -- set to true to draw the model in translucent
+	return true -- set to true to draw the model in translucent
 end
 
 function ENT:PostDraw()
