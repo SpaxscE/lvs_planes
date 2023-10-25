@@ -100,7 +100,7 @@ function ENT:HandleAirBrake()
 
 	local Vel = PhysObj:GetVelocity()
 
-	local Mul = math.max( Vel:Length() - self.MaxVelocity, 0 ) / 15000
+	local Mul = math.max( Vel:Length() - self.MaxVelocity, 0 ) / 3000
 
 	PhysObj:ApplyForceCenter( -Vel * PhysObj:GetMass() * FrameTime() * Mul )
 end

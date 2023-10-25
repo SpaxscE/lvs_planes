@@ -30,7 +30,13 @@ function ENT:OnFrameActive()
 
 	if not IsValid( ply ) then return end
 
-	local volume = math.Clamp((self:GetVelocity():Length() - self.MaxVelocity) / 500,0,1)
+	local Vel = self:GetVelocity():Length()
+
+	if self:GetAirBrake() then
+		Vel = Vel * 1.25
+	end
+
+	local volume = math.Clamp((Vel - self.MaxVelocity) / 500,0,1)
 
 	local pitch = 110 * self:CalcDoppler( ply ) * (0.75 + 0.25 * volume)
 
