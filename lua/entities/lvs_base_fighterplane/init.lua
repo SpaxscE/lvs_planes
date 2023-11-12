@@ -167,7 +167,7 @@ end
 function ENT:PhysicsSimulate( phys, deltatime )
 	local Aero, Torque = self:CalcAero( phys, deltatime )
 
-	phys:Wake()
+	if self:GetEngineActive() then phys:Wake() end
 
 	local Thrust = math.max( self:GetThrustStrenght(), 0 ) * self.MaxThrust * 100
 
