@@ -60,3 +60,4 @@ function ENT:AnimLandingGear( frametime )
 	self:ManipulateBoneAngles( 3, Angle( -self._smLandingGear / 2,0,0) )
 	self:ManipulateBoneAngles( 4, Angle( self._smLandingGear / 2,0,0) )
 end
+
