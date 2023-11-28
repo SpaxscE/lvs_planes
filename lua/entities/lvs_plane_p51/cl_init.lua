@@ -2,7 +2,7 @@ include("shared.lua")
 
 ENT.ReflectorSight = true
 ENT.ReflectorSightPos = Vector(33,0,106.68)
-ENT.ReflectorSightColor = Color(248,165,40,255)
+ENT.ReflectorSightColor = Color(255,150,0,255)
 ENT.ReflectorSightColorBG = Color(0,0,0,0)
 ENT.ReflectorSightMaterial = Material("lvs/sights/p51d.png")
 ENT.ReflectorSightMaterialRes = 128

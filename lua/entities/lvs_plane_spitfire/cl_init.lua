@@ -14,7 +14,7 @@ ENT.ReflectorSightGlowMaterialRes = 150
 ENT.ReflectorSightGlowColor = Color(60,40,0,255)
 
 function ENT:CalcViewOverride( ply, pos, angles, fov, pod )
-	pos = pos - self:GetForward() * 7
+	pos = pos - self:GetForward() * 12
 
 	return pos, angles, fov
 end
