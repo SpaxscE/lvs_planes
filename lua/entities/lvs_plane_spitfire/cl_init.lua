@@ -1,16 +1,16 @@
 include("shared.lua")
 
 ENT.ReflectorSight = true
-ENT.ReflectorSightPos = Vector(36.25,-0.25,92.5)
+ENT.ReflectorSightPos = Vector(36.25,-0.25,92.65)
 ENT.ReflectorSightColor = Color(255,150,0,255)
 ENT.ReflectorSightColorBG = Color(0,0,0,0)
 ENT.ReflectorSightMaterial = Material("lvs/sights/spitfire.png")
 ENT.ReflectorSightMaterialRes = 128
-ENT.ReflectorSightHeight = 2.4
-ENT.ReflectorSightWidth = 1.3
+ENT.ReflectorSightHeight = 1.9
+ENT.ReflectorSightWidth = 1
 ENT.ReflectorSightGlow = true
 ENT.ReflectorSightGlowMaterial = Material( "sprites/light_glow02_add" )
-ENT.ReflectorSightGlowMaterialRes = 600
+ENT.ReflectorSightGlowMaterialRes = 150
 ENT.ReflectorSightGlowColor = Color(60,40,0,255)
 
 function ENT:CalcViewOverride( ply, pos, angles, fov, pod )
