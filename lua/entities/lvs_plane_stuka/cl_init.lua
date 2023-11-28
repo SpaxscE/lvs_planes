@@ -13,7 +13,7 @@ ENT.ReflectorSightHeight = 2.2
 ENT.ReflectorSightWidth = 1.3
 ENT.ReflectorSightGlow = true
 ENT.ReflectorSightGlowMaterial = Material( "sprites/light_glow02_add" )
-ENT.ReflectorSightGlowMaterialRes = 600
+ENT.ReflectorSightGlowMaterialRes = 300
 ENT.ReflectorSightGlowColor = Color(60,40,0,255)
 
 function ENT:LVSHudPaintInfoText( X, Y, W, H, ScrX, ScrY, ply )
