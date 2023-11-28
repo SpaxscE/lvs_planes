@@ -1,5 +1,24 @@
 include("shared.lua")
 
+ENT.ReflectorSight = true
+ENT.ReflectorSightPos = Vector(36.25,-0.25,92.5)
+ENT.ReflectorSightColor = Color(255,150,0,255)
+ENT.ReflectorSightColorBG = Color(0,0,0,0)
+ENT.ReflectorSightMaterial = Material("lvs/sights/spitfire.png")
+ENT.ReflectorSightMaterialRes = 128
+ENT.ReflectorSightHeight = 2.4
+ENT.ReflectorSightWidth = 1.3
+ENT.ReflectorSightGlow = true
+ENT.ReflectorSightGlowMaterial = Material( "sprites/light_glow02_add" )
+ENT.ReflectorSightGlowMaterialRes = 600
+ENT.ReflectorSightGlowColor = Color(60,40,0,255)
+
+function ENT:CalcViewOverride( ply, pos, angles, fov, pod )
+	pos = pos - self:GetForward() * 7
+
+	return pos, angles, fov
+end
+
 function ENT:OnSpawn()
 	self:RegisterTrail( Vector(60,205,70), 0, 20, 2, 1000, 400 )
 	self:RegisterTrail( Vector(60,-205,70), 0, 20, 2, 1000, 400 )

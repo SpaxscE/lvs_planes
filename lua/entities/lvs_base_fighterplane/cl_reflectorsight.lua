@@ -1,14 +1,16 @@
 
-ENT.ReflectorSight = true
-ENT.ReflectorSightPos = Vector(51,-0.05,99.65)
-ENT.ReflectorSightColor = Color(255,191,0,255)
-ENT.ReflectorSightColorBG = Color(0,0,0,50)
+ENT.ReflectorSight = false
+ENT.ReflectorSightPos = vector_origin
+ENT.ReflectorSightColor = color_white
+ENT.ReflectorSightColorBG = color_black
 ENT.ReflectorSightMaterial = Material("lvs/sights/german.png")
 ENT.ReflectorSightMaterialRes = 128
-ENT.ReflectorSightHeight = 2.85
-ENT.ReflectorSightWidth = 1.55
+ENT.ReflectorSightHeight = 3
+ENT.ReflectorSightWidth = 1.5
+ENT.ReflectorSightGlow = false
 ENT.ReflectorSightGlowMaterial = Material( "sprites/light_glow02_add" )
-ENT.ReflectorSightGlowColor = Color(255,191,0,255)
+ENT.ReflectorSightGlowMaterialRes = 600
+ENT.ReflectorSightGlowColor = color_white
 
 function ENT:IsDrawingReflectorSight()
 	if not self.ReflectorSight then return false end
@@ -74,6 +76,12 @@ function ENT:DrawReflectorSight( Pos2D )
 
 	render.SetStencilCompareFunction( STENCIL_EQUAL )
 	render.SetStencilFailOperation( STENCIL_KEEP )
+
+	if self.ReflectorSightGlow then
+		surface.SetDrawColor( self.ReflectorSightGlowColor )
+		surface.SetMaterial( self.ReflectorSightGlowMaterial )
+		surface.DrawTexturedRectRotated( Pos2D.x, Pos2D.y, self.ReflectorSightGlowMaterialRes, self.ReflectorSightGlowMaterialRes, -Ang )
+	end
 
 	surface.SetDrawColor( self.ReflectorSightColor )
 	surface.SetMaterial( self.ReflectorSightMaterial )

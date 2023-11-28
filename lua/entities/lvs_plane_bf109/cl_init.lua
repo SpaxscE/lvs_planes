@@ -1,5 +1,18 @@
 include("shared.lua")
 
+ENT.ReflectorSight = true
+ENT.ReflectorSightPos = Vector(51,-0.05,99.65)
+ENT.ReflectorSightColor = Color(255,150,0,255)
+ENT.ReflectorSightColorBG = Color(0,0,0,50)
+ENT.ReflectorSightMaterial = Material("lvs/sights/bf109.png")
+ENT.ReflectorSightMaterialRes = 128
+ENT.ReflectorSightHeight = 2.85
+ENT.ReflectorSightWidth = 1.55
+ENT.ReflectorSightGlow = true
+ENT.ReflectorSightGlowMaterial = Material( "sprites/light_glow02_add" )
+ENT.ReflectorSightGlowMaterialRes = 600
+ENT.ReflectorSightGlowColor = Color(60,40,0,255)
+
 function ENT:OnSpawn()
 	self:RegisterTrail( Vector(40,200,70), 0, 20, 2, 1000, 400 )
 	self:RegisterTrail( Vector(40,-200,70), 0, 20, 2, 1000, 400 )

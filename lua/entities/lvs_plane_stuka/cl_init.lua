@@ -3,6 +3,19 @@ include( "cl_prediction.lua" )
 
 DEFINE_BASECLASS( "lvs_base_fighterplane" )
 
+ENT.ReflectorSight = true
+ENT.ReflectorSightPos = Vector(0,-1.88,127.28)
+ENT.ReflectorSightColor = Color(255,150,0,255)
+ENT.ReflectorSightColorBG = Color(0,0,0,0)
+ENT.ReflectorSightMaterial = Material("lvs/sights/stuka.png")
+ENT.ReflectorSightMaterialRes = 128
+ENT.ReflectorSightHeight = 2.2
+ENT.ReflectorSightWidth = 1.3
+ENT.ReflectorSightGlow = true
+ENT.ReflectorSightGlowMaterial = Material( "sprites/light_glow02_add" )
+ENT.ReflectorSightGlowMaterialRes = 600
+ENT.ReflectorSightGlowColor = Color(60,40,0,255)
+
 function ENT:LVSHudPaintInfoText( X, Y, W, H, ScrX, ScrY, ply )
 	BaseClass.LVSHudPaintInfoText( self, X, Y, W, H, ScrX, ScrY, ply )
 
