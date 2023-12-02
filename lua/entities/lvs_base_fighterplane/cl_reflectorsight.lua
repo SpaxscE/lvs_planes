@@ -12,6 +12,18 @@ ENT.ReflectorSightGlowMaterial = Material( "sprites/light_glow02_add" )
 ENT.ReflectorSightGlowMaterialRes = 600
 ENT.ReflectorSightGlowColor = color_white
 
+function ENT:PaintReflectorSight( Pos2D, Ang )
+	if self.ReflectorSightGlow then
+		surface.SetDrawColor( self.ReflectorSightGlowColor )
+		surface.SetMaterial( self.ReflectorSightGlowMaterial )
+		surface.DrawTexturedRectRotated( Pos2D.x, Pos2D.y, self.ReflectorSightGlowMaterialRes, self.ReflectorSightGlowMaterialRes, -Ang )
+	end
+
+	surface.SetDrawColor( self.ReflectorSightColor )
+	surface.SetMaterial( self.ReflectorSightMaterial )
+	surface.DrawTexturedRectRotated( Pos2D.x, Pos2D.y, self.ReflectorSightMaterialRes, self.ReflectorSightMaterialRes, -Ang )
+end
+
 function ENT:IsDrawingReflectorSight()
 	if not self.ReflectorSight then return false end
 
@@ -77,15 +89,7 @@ function ENT:DrawReflectorSight( Pos2D )
 	render.SetStencilCompareFunction( STENCIL_EQUAL )
 	render.SetStencilFailOperation( STENCIL_KEEP )
 
-	if self.ReflectorSightGlow then
-		surface.SetDrawColor( self.ReflectorSightGlowColor )
-		surface.SetMaterial( self.ReflectorSightGlowMaterial )
-		surface.DrawTexturedRectRotated( Pos2D.x, Pos2D.y, self.ReflectorSightGlowMaterialRes, self.ReflectorSightGlowMaterialRes, -Ang )
-	end
-
-	surface.SetDrawColor( self.ReflectorSightColor )
-	surface.SetMaterial( self.ReflectorSightMaterial )
-	surface.DrawTexturedRectRotated( Pos2D.x, Pos2D.y, self.ReflectorSightMaterialRes, self.ReflectorSightMaterialRes, -Ang )
+	self:PaintReflectorSight( Pos2D, Ang )
 
 	render.SetStencilEnable( false )
 end
