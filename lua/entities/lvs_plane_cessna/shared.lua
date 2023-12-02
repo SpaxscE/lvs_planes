@@ -6,6 +6,9 @@ ENT.Author = "Luna"
 ENT.Information = "Small and Unarmed Civilian Airplane"
 ENT.Category = "[LVS] - Planes"
 
+ENT.VehicleCategory = "Planes"
+ENT.VehicleSubCategory = "Civilian"
+
 ENT.Spawnable			= true
 ENT.AdminSpawnable		= false
 

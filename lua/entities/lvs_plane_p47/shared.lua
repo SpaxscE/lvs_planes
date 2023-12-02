@@ -6,6 +6,9 @@ ENT.Author = "Luna"
 ENT.Information = "American World War 2 Fighterplane"
 ENT.Category = "[LVS] - Planes"
 
+ENT.VehicleCategory = "Planes"
+ENT.VehicleSubCategory = "Fighters"
+
 ENT.Spawnable			= true
 ENT.AdminSpawnable		= false
 

@@ -6,6 +6,9 @@ ENT.Author = "Luna"
 ENT.Information = "Japanese World War 2 Manned Steerable Bomb"
 ENT.Category = "[LVS] - Planes"
 
+ENT.VehicleCategory = "Planes"
+ENT.VehicleSubCategory = "Fighters"
+
 ENT.Spawnable			= true
 ENT.AdminSpawnable		= false
 
