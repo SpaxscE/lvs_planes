@@ -12,7 +12,7 @@ ENT.ReflectorSightGlowMaterial = Material( "sprites/light_glow02_add" )
 ENT.ReflectorSightGlowMaterialRes = 600
 ENT.ReflectorSightGlowColor = color_white
 
-function ENT:PaintReflectorSight( Pos2D, Ang )
+function ENT:PaintReflectorSight( Pos2D, Ang, Origin2D )
 	if self.ReflectorSightGlow then
 		surface.SetDrawColor( self.ReflectorSightGlowColor )
 		surface.SetMaterial( self.ReflectorSightGlowMaterial )
@@ -89,7 +89,7 @@ function ENT:DrawReflectorSight( Pos2D )
 	render.SetStencilCompareFunction( STENCIL_EQUAL )
 	render.SetStencilFailOperation( STENCIL_KEEP )
 
-	self:PaintReflectorSight( Pos2D, Ang )
+	self:PaintReflectorSight( Pos2D, Ang, Pos )
 
 	render.SetStencilEnable( false )
 end
