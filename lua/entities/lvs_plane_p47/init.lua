@@ -25,45 +25,6 @@ function ENT:OnSpawn( PObj )
 
 	self:AddRotor( Vector(180,0,64) )
 
-	local Exhaust = {
-		{
-			pos = Vector(116.8,17.6,34),
-			ang = Angle(-120,-45,0),
-		},
-		{
-			pos = Vector(112,17.6,34),
-			ang = Angle(-120,-45,0),
-		},
-		{
-			pos = Vector(116.8,-17.6,34),
-			ang = Angle(-120,45,0),
-		},
-		{
-			pos = Vector(112,-17.6,34),
-			ang = Angle(-120,45,0),
-		},
-		{
-			pos = Vector(116.8,18,38),
-			ang = Angle(-120,-45,0),
-		},
-		{
-			pos = Vector(112,18,38),
-			ang = Angle(-120,-45,0),
-		},
-		{
-			pos = Vector(116.8,-18,38),
-			ang = Angle(-120,45,0),
-		},
-		{
-			pos = Vector(112,-18,38),
-			ang = Angle(-120,45,0),
-		},
-	}
-
-	for id, exh in pairs( Exhaust ) do
-		self:AddExhaust( exh.pos, exh.ang )
-	end
-
 	self.MISSILE_ENTITIES = {}
 
 	for ID, pos in pairs( self.MISSILE_POSITIONS ) do

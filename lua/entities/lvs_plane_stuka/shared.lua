@@ -289,3 +289,54 @@ ENT.EngineSounds = {
 		UseDoppler = true,
 	},
 }
+
+ENT.ExhaustPositions = {
+	{
+		pos = Vector(89.5,20,87),
+		ang = Angle(-90,-20,0),
+	},
+	{
+		pos = Vector(83,20,87),
+		ang = Angle(-90,-20,0),
+	},
+	{
+		pos = Vector(76.5,20,87),
+		ang = Angle(-90,-20,0),
+	},
+	{
+		pos = Vector(70,20,87),
+		ang = Angle(-90,-20,0),
+	},
+	{
+		pos = Vector(63.5,20,87),
+		ang = Angle(-90,-20,0),
+	},
+	{
+		pos = Vector(57,20,87),
+		ang = Angle(-90,-20,0),
+	},
+	{
+		pos = Vector(89.5,-20,87),
+		ang = Angle(-90,20,0),
+	},
+	{
+		pos = Vector(83,-20,87),
+		ang = Angle(-90,20,0),
+	},
+	{
+		pos = Vector(76.5,-20,87),
+		ang = Angle(-90,20,0),
+	},
+	{
+		pos = Vector(70,-20,87),
+		ang = Angle(-90,20,0),
+	},
+	{
+		pos = Vector(63.5,-20,87),
+		ang = Angle(-90,20,0),
+	},
+	{
+		pos = Vector(57,-20,87),
+		ang = Angle(-90,20,0),
+	},
+}

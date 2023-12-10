@@ -8,11 +8,26 @@ ENT.DoNotDuplicate = true
 
 ENT._LVS = true
 
+ENT.RenderGroup = RENDERGROUP_BOTH 
+
 function ENT:SetupDataTables()
 	self:NetworkVar( "Entity",0, "Base" )
 end
 
 if SERVER then
+	util.AddNetworkString( "lvsplane_exhautcompatibility" )
+
+	net.Receive( "lvsplane_exhautcompatibility", function( len, ply )
+		local ent = net.ReadEntity()
+
+		if not IsValid( ent ) or not ent.LVS or not ent.ExhaustPositions then return end
+
+		net.Start( "lvsplane_exhautcompatibility")
+			net.WriteEntity( ent )
+			net.WriteTable( ent.ExhaustPositions )
+		net.Send( ply )
+	end )
+
 	function ENT:Initialize()	
 		self:SetMoveType( MOVETYPE_NONE )
 		self:SetSolid( SOLID_NONE )
@@ -52,10 +67,6 @@ if SERVER then
 	end
 
 	function ENT:OnTakeDamage( dmginfo )
-	end
-
-	function ENT:UpdateTransmitState() 
-		return TRANSMIT_ALWAYS
 	end
 
 	return
@@ -272,6 +283,21 @@ function ENT:Draw()
 end
 
 function ENT:DrawTranslucent()
+	local vehicle = self:GetBase()
+
+	if not IsValid( vehicle ) or not vehicle:GetEngineActive() then return end
+
+	if not istable( vehicle.ExhaustPositions ) then
+		vehicle.ExhaustPositions = {}
+
+		net.Start("lvsplane_exhautcompatibility")
+			net.WriteEntity( vehicle )
+		net.SendToServer()
+	end
+
+	if #vehicle.ExhaustPositions == 0 then return end
+
+	vehicle:DoExhaustFX()
 end
 
 function ENT:DamageFX( vehicle )
@@ -288,3 +314,12 @@ function ENT:DamageFX( vehicle )
 		effectdata:SetEntity( vehicle )
 	util.Effect( "lvs_engine_blacksmoke", effectdata )
 end
+
+net.Receive( "lvsplane_exhautcompatibility", function( len )
+	local ent = net.ReadEntity()
+
+	if not IsValid( ent ) then return end
+
+	ent.ExhaustPositions = net.ReadTable()
+end )
+

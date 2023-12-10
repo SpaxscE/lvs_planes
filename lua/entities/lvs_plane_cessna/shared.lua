@@ -126,3 +126,9 @@ ENT.EngineSounds = {
 	},
 }
 
+ENT.ExhaustPositions = {
+	{
+		pos = Vector(65.04,-14.93,19.46),
+		ang = Angle(145,-90,0),
+	},
+}

@@ -65,26 +65,12 @@ function ENT:AddRotor( pos )
 end
 
 function ENT:AddExhaust( pos, ang )
-	local Exhaust = ents.Create( "lvs_fighterplane_exhaust" )
+	if not istable( self.ExhaustPositions ) then self.ExhaustPositions = {} end
 
-	if not IsValid( Exhaust ) then
-		self:Remove()
+	local Exhaust = {
+		pos = pos,
+		ang = ang,
+	}
 
-		print("LVS: Failed to create exhaust entity. Vehicle terminated.")
-
-		return
-	end
-
-	Exhaust:SetPos( self:LocalToWorld( pos ) )
-	Exhaust:SetAngles( self:LocalToWorldAngles( ang ) )
-	Exhaust:Spawn()
-	Exhaust:Activate()
-	Exhaust:SetParent( self )
-	Exhaust:SetBase( self )
-
-	self:DeleteOnRemove( Exhaust )
-
-	self:TransferCPPI( Exhaust )
-
-	return Exhaust
+	table.insert( self.ExhaustPositions, Exhaust )
 end

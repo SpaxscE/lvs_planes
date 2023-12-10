@@ -29,41 +29,6 @@ function ENT:OnSpawn( PObj )
 	Rotor:SetSound("lvs/vehicles/generic/bomber_propeller.wav")
 	Rotor:SetSoundStrain("lvs/vehicles/generic/bomber_propeller_strain.wav")
 
-	local Exhaust = {
-		{
-			pos = Vector(89.5,20,87),
-			ang = Angle(-90,-20,0),
-		},
-		{
-			pos = Vector(83,20,87),
-			ang = Angle(-90,-20,0),
-		},
-		{
-			pos = Vector(76.5,20,87),
-			ang = Angle(-90,-20,0),
-		},
-		{
-			pos = Vector(70,20,87),
-			ang = Angle(-90,-20,0),
-		},
-		{
-			pos = Vector(63.5,20,87),
-			ang = Angle(-90,-20,0),
-		},
-		{
-			pos = Vector(57,20,87),
-			ang = Angle(-90,-20,0),
-		},
-	}
-	for id, exh in pairs( Exhaust ) do
-		for i = -1, 1, 2 do
-			local pos = Vector( exh.pos.x, exh.pos.y * i, exh.pos.z )
-			local ang = Angle( exh.ang.p, exh.ang.y * i, exh.ang.r )
-
-			self:AddExhaust( pos, ang )
-		end
-	end
-
 	local ID = self:LookupAttachment( "mg_muzzle" )
 	local Muzzle = self:GetAttachment( ID )
 	self.SNDTurret = self:AddSoundEmitter( self:WorldToLocal( Muzzle.Pos ), "lvs/weapons/gunner_mg_loop.wav", "lvs/weapons/gunner_mg_loop_interior.wav" )

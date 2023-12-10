@@ -40,8 +40,6 @@ function ENT:OnSpawn( PObj )
 	self:AddEngine( Vector(40,0,45) )
 
 	self:AddRotor( Vector(50,0,47.28) )
-
-	self:AddExhaust( Vector(65.04,-14.93,19.46), Angle(145,-90,0) )
 end
 
 function ENT:OnEngineActiveChanged( Active )

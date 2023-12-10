@@ -22,33 +22,6 @@ function ENT:OnSpawn( PObj )
 	self:AddEngine( Vector(60,0,74.) )
 
 	self:AddRotor( Vector(101.7429,0,74) )
-
-	local Exhaust = {
-		{
-			pos = Vector(67.84,18.61,87.15),
-			ang = Angle(-90,-20,0),
-		},
-		{
-			pos = Vector(66.36,21.87,79.01),
-			ang = Angle(-90,-20,0),
-		},
-		{
-			pos = Vector(66.09,22.23,70.26),
-			ang = Angle(-90,-20,0),
-		},
-		{
-			pos = Vector(65.86,18.2,62.44),
-			ang = Angle(-90,-20,0),
-		},
-	}
-	for id, exh in pairs( Exhaust ) do
-		for i = -1, 1, 2 do
-			local pos = Vector( exh.pos.x, exh.pos.y * i, exh.pos.z )
-			local ang = Angle( exh.ang.p, exh.ang.y * i, exh.ang.r )
-
-			self:AddExhaust( pos, ang )
-		end
-	end
 end
 
 function ENT:OnLandingGearToggled( IsDeployed )
