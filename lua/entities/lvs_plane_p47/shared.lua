@@ -65,9 +65,9 @@ function ENT:InitWeapons()
 	weapon.Icon = Material("lvs/weapons/missile.png")
 	weapon.UseableByAI = false
 	weapon.Ammo = 10
-	weapon.Delay = 0.25
-	weapon.HeatRateUp = 2
-	weapon.HeatRateDown = 0.75
+	weapon.Delay = 0.1
+	weapon.HeatRateUp = 6
+	weapon.HeatRateDown = 4
 	weapon.Attack = function( ent )
 		if not ent.MISSILE_ENTITIES then return end
 
@@ -86,7 +86,7 @@ function ENT:InitWeapons()
 		projectile:SetAttacker( ent:GetDriver() )
 		projectile:SetEntityFilter( ent:GetCrosshairFilterEnts() )
 		projectile:SetSpeed( ent:GetVelocity():Length() + 4000 )
-		projectile:SetDamage( 250 )
+		projectile:SetDamage( 1000 )
 		projectile:Enable()
 
 		ent:TakeAmmo()

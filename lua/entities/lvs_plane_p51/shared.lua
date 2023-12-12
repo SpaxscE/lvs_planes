@@ -76,7 +76,7 @@ function ENT:InitWeapons()
 		projectile:SetAttacker( ent:GetDriver() )
 		projectile:SetEntityFilter( ent:GetCrosshairFilterEnts() )
 		projectile:SetSpeed( ent:GetVelocity():Length() + 4000 )
-		projectile:SetDamage( 250 )
+		projectile:SetDamage( 1000 )
 		projectile:Enable()
 
 		ent:TakeAmmo()

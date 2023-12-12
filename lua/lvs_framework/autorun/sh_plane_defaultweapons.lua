@@ -51,7 +51,7 @@ LVS:AddWeaponPreset( "LMG", {
 } )
 
 LVS:AddWeaponPreset( "TABLE_POINT_MG", {
-	Icon = Material("lvs/weapons/bullet.png"),
+	Icon = Material("lvs/weapons/mc.png"),
 	Ammo = 2000,
 	Delay = 0.1,
 	Attack = function( ent )
