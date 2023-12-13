@@ -83,16 +83,13 @@ function ENT:InitWeapons()
 		bullet.Dir 	= Missile:GetAngles():Forward()
 		bullet.Spread 	= Vector(0,0,0)
 		bullet.TracerName = "lvs_tracer_missile"
-
 		bullet.Force	= 15000
-	
-		bullet.HullSize 	= 100
+		bullet.HullSize 	= 100 * (1 - ent:GetLandingGear())
 		bullet.Damage	= 750
 		bullet.SplashDamage = 250
 		bullet.SplashDamageRadius = 250
 		bullet.SplashDamageEffect = "lvs_bullet_impact_explosive"
 		bullet.SplashDamageType = DMG_BLAST
-
 		bullet.Velocity = 7000
 		bullet.Attacker 	= ent:GetDriver()
 
