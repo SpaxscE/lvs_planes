@@ -55,9 +55,9 @@ function ENT:InitWeapons()
 	weapon.Icon = Material("lvs/weapons/missile.png")
 	weapon.UseableByAI = false
 	weapon.Ammo = 8
-	weapon.Delay = 0.1
-	weapon.HeatRateUp = 2.5
-	weapon.HeatRateDown = 1
+	weapon.Delay = 0.2
+	weapon.HeatRateUp = 1.25
+	weapon.HeatRateDown = 0.25
 	weapon.Attack = function( ent )
 		if not ent.MISSILE_ENTITIES then return end
 
@@ -66,18 +66,27 @@ function ENT:InitWeapons()
 		if not IsValid( Missile ) then return end
 
 		Missile:SetNoDraw( true )
+		Missile:EmitSound("LVS_MISSILE_FIRE")
 
-		local projectile = ents.Create( "lvs_missile" )
-		projectile:SetPos( Missile:GetPos() )
-		projectile:SetAngles( Missile:GetAngles() )
-		projectile:SetOwner( ent )
-		projectile:Spawn()
-		projectile:Activate()
-		projectile:SetAttacker( ent:GetDriver() )
-		projectile:SetEntityFilter( ent:GetCrosshairFilterEnts() )
-		projectile:SetSpeed( ent:GetVelocity():Length() + 4000 )
-		projectile:SetDamage( 1000 )
-		projectile:Enable()
+		local bullet = {}
+		bullet.Src 	= Missile:GetPos()
+		bullet.Dir 	= Missile:GetAngles():Forward()
+		bullet.Spread 	= Vector(0,0,0)
+		bullet.TracerName = "lvs_tracer_missile"
+
+		bullet.Force	= 15000
+	
+		bullet.HullSize 	= 100
+		bullet.Damage	= 750
+		bullet.SplashDamage = 250
+		bullet.SplashDamageRadius = 250
+		bullet.SplashDamageEffect = "lvs_bullet_impact_explosive"
+		bullet.SplashDamageType = DMG_BLAST
+
+		bullet.Velocity = 7000
+		bullet.Attacker 	= ent:GetDriver()
+
+		ent:LVSFireBullet( bullet )
 
 		ent:TakeAmmo()
 	end

@@ -202,3 +202,19 @@ LVS:AddWeaponPreset( "TURBO", {
 	end,
 	OnOverheat = function( ent ) ent:EmitSound("lvs/overheat_boost.wav") end,
 } )
+
+
+sound.Add( {
+	name = "LVS_MISSILE_FIRE",
+	channel = CHAN_WEAPON,
+	volume = 1.0,
+	level = 90,
+	sound = {
+		"^lvs/weapons/missile_1.wav",
+		"^lvs/weapons/missile_2.wav",
+		"^lvs/weapons/missile_3.wav",
+		"^lvs/weapons/missile_4.wav",
+	}
+} )
+
+
