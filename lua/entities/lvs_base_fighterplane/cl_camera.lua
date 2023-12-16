@@ -84,6 +84,8 @@ function ENT:CalcViewMouseAim( ply, pos, angles, fov, pod )
 
 	self._lvsSmoothFreeLook = self._lvsSmoothFreeLook + ((ply:lvsKeyDown( "FREELOOK" ) and 0 or 1) - self._lvsSmoothFreeLook) * RealFrameTime() * 10
 
+	local Zoom = ply:lvsKeyDown( "ZOOM" )
+
 	local velL = self:WorldToLocal( self:GetPos() + self:GetVelocity() )
 
 	local Dividor = math.abs( velL.x )
