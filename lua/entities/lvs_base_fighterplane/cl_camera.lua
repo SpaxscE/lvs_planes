@@ -84,8 +84,22 @@ function ENT:CalcViewMouseAim( ply, pos, angles, fov, pod )
 
 	self._lvsSmoothFreeLook = self._lvsSmoothFreeLook + ((ply:lvsKeyDown( "FREELOOK" ) and 0 or 1) - self._lvsSmoothFreeLook) * RealFrameTime() * 10
 
+	local velL = self:WorldToLocal( self:GetPos() + self:GetVelocity() )
+
+	local Dividor = math.abs( velL.x )
+	local SideForce = math.Clamp( velL.y / Dividor, -1, 1)
+	local UpForce = math.Clamp( velL.z / Dividor, -1, 1)
+
+	local ViewPunch = Vector(0,math.Clamp(SideForce * 10,-1,1),math.Clamp(UpForce * 10,-1,1))
+	if Zoom then
+		ViewPunch = Vector(0,0,0)
+	end
+		
+	pod._lerpPosOffset = pod._lerpPosOffset and pod._lerpPosOffset + (ViewPunch - pod._lerpPosOffset) * RealFrameTime() * 5 or Vector(0,0,0)
+	pod._lerpPos = pos
+
 	local view = {}
-	view.origin = pos
+	view.origin = pos + pod:GetForward() *  -pod._lerpPosOffset.y * 0.5 + pod:GetUp() *  pod._lerpPosOffset.z * 0.5
 	view.fov = fov
 	view.drawviewer = true
 	view.angles = (self:GetForward() * (1 + cvarFocus) * self._lvsSmoothFreeLook * 0.8 + ply:EyeAngles():Forward() * math.max(1 - cvarFocus, 1 - self._lvsSmoothFreeLook)):Angle()
