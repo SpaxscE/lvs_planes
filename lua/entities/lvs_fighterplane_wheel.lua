@@ -27,11 +27,15 @@ if SERVER then
 		if active ~= self._BrakesActive then
 			self._BrakesActive = active
 
-			if active then
-				self:StartMotionController()
-			else
-				self:StopMotionController()
-			end
+			timer.Simple(0, function()
+				if not IsValid( self ) then return end
+
+				if active then
+					self:StartMotionController()
+				else
+					self:StopMotionController()
+				end
+			end)
 		end
 	end
 
