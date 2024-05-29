@@ -1,0 +1,2 @@
+version=106
+url=https://raw.githubusercontent.com/SpaxscE/lvs_planes/main/data_static/lvs/2912826012.txt
