@@ -22,7 +22,7 @@ LVS:AddWeaponPreset( "LMG", {
 		bullet.Dir = ent:LocalToWorldAngles( Angle(0,-Dir * Mirror,0) ):Forward()
 		bullet.Spread 	= Vector( 0.015,  0.015, 0 )
 		bullet.TracerName = "lvs_tracer_white"
-		bullet.Force	= 10
+		bullet.Force	= 1000
 		bullet.HullSize 	= 50
 		bullet.Damage	= 35
 		bullet.Velocity = 30000
@@ -76,7 +76,7 @@ LVS:AddWeaponPreset( "TABLE_POINT_MG", {
 			bullet.Dir = ent:LocalToWorldAngles( Angle(0,-Dir,0) ):Forward()
 			bullet.Spread 	= Vector( 0.035,  0.035, 0 )
 			bullet.TracerName = "lvs_tracer_yellow"
-			bullet.Force	= 10
+			bullet.Force	= 1000
 			bullet.HullSize 	= 25
 			bullet.Damage	= 35
 			bullet.Velocity = 40000
@@ -128,7 +128,7 @@ LVS:AddWeaponPreset( "HMG", {
 		bullet.Dir = ent:LocalToWorldAngles( Angle(0,-Dir * Mirror,0) ):Forward()
 		bullet.Spread 	= Vector( 0.04,  0.04, 0 )
 		bullet.TracerName = "lvs_tracer_orange"
-		bullet.Force	= 50
+		bullet.Force	= 4000
 		bullet.HullSize 	= 15
 		bullet.Damage	= 45
 		bullet.SplashDamage = 75
