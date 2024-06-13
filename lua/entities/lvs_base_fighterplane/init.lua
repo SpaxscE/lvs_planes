@@ -70,11 +70,15 @@ function ENT:ApproachTargetAngle( TargetAngle, OverridePitch, OverrideYaw, Overr
 	self:SetSteer( Vector( math.Clamp(Roll * 1.25,-1,1), math.Clamp(-Pitch * 1.25,-1,1), -Yaw) )
 end
 
-function ENT:CalcAero( phys, deltatime )
+function ENT:CalcAero( phys, deltatime, EntTable )
+	if not EntTable then
+		EntTable = self:GetTable()
+	end
+
 	-- mouse aim needs to run at high speed.
 	if self:GetAI() then
-		if self._lvsAITargetAng then
-			self:ApproachTargetAngle( self._lvsAITargetAng )
+		if EntTable._lvsAITargetAng then
+			self:ApproachTargetAngle( EntTable._lvsAITargetAng )
 		end
 	else
 		local ply = self:GetDriver()
@@ -113,7 +117,7 @@ function ENT:CalcAero( phys, deltatime )
 	local GravityPitch = math.abs( PitchPull ) ^ 1.25 * self:Sign( PitchPull ) * GravMul
 	local GravityYaw = math.abs( YawPull ) ^ 1.25 * self:Sign( YawPull ) * GravMul
 
-	local StallMul = math.min( (-math.min(Vel.z + self.StallVelocity,0) / 100) * self.StallForceMultiplier, self.StallForceMax )
+	local StallMul = math.min( (-math.min(Vel.z + EntTable.StallVelocity,0) / 100) * EntTable.StallForceMultiplier, EntTable.StallForceMax )
 
 	local StallPitch = 0
 	local StallYaw = 0
@@ -134,19 +138,19 @@ function ENT:CalcAero( phys, deltatime )
 		end
 	end
 
-	local Pitch = math.Clamp(Steer.y - GravityPitch,-1,1) * self.TurnRatePitch * 3 * Stability - StallPitch * InvStability
-	local Yaw = math.Clamp(Steer.z * 4 + GravityYaw,-1,1) * self.TurnRateYaw * Stability + StallYaw * InvStability
-	local Roll = math.Clamp(Steer.x * 1.5,-1,1) * self.TurnRateRoll * 12 * Stability
+	local Pitch = math.Clamp(Steer.y - GravityPitch,-1,1) * EntTable.TurnRatePitch * 3 * Stability - StallPitch * InvStability
+	local Yaw = math.Clamp(Steer.z * 4 + GravityYaw,-1,1) * EntTable.TurnRateYaw * Stability + StallYaw * InvStability
+	local Roll = math.Clamp(Steer.x * 1.5,-1,1) * EntTable.TurnRateRoll * 12 * Stability
 
 	self:HandleLandingGear( deltatime )
-	self:SetWheelSteer( Steer.z * self.WheelSteerAngle )
+	self:SetWheelSteer( Steer.z * EntTable.WheelSteerAngle )
 
 	local VelL = self:WorldToLocal( self:GetPos() + Vel )
 
-	local SlipMul = 1 - math.Clamp( math.max( math.abs( VelL.x ) - self.MaxPerfVelocity, 0 ) / math.max(self.MaxVelocity - self.MaxPerfVelocity, 0 ),0,1)
+	local SlipMul = 1 - math.Clamp( math.max( math.abs( VelL.x ) - EntTable.MaxPerfVelocity, 0 ) / math.max(EntTable.MaxVelocity - EntTable.MaxPerfVelocity, 0 ),0,1)
 
-	local MulZ = (math.max( math.deg( math.acos( math.Clamp( VelForward:Dot( Forward ) ,-1,1) ) ) - self.MaxSlipAnglePitch * SlipMul * math.abs( Steer.y ), 0 ) / 90) * 0.3
-	local MulY = (math.max( math.abs( math.deg( math.acos( math.Clamp( VelForward:Dot( Left ) ,-1,1) ) ) - 90 ) - self.MaxSlipAngleYaw * SlipMul * math.abs( Steer.z ), 0 ) / 90) * 0.15
+	local MulZ = (math.max( math.deg( math.acos( math.Clamp( VelForward:Dot( Forward ) ,-1,1) ) ) - EntTable.MaxSlipAnglePitch * SlipMul * math.abs( Steer.y ), 0 ) / 90) * 0.3
+	local MulY = (math.max( math.abs( math.deg( math.acos( math.Clamp( VelForward:Dot( Left ) ,-1,1) ) ) - 90 ) - EntTable.MaxSlipAngleYaw * SlipMul * math.abs( Steer.z ), 0 ) / 90) * 0.15
 
 	local Lift = -math.min( (math.deg( math.acos( math.Clamp( WorldUp:Dot( Up ) ,-1,1) ) ) - 90) / 180,0) * (WorldGravity / (1 / deltatime))
 
@@ -166,14 +170,16 @@ function ENT:OnSkyCollide( data, PhysObj )
 end
 
 function ENT:PhysicsSimulate( phys, deltatime )
-	local Aero, Torque = self:CalcAero( phys, deltatime )
+	local EntTable = self:GetTable()
+
+	local Aero, Torque = self:CalcAero( phys, deltatime, EntTable )
 
 	if self:GetEngineActive() then phys:Wake() end
 
-	local Thrust = math.max( self:GetThrustStrenght(), 0 ) * self.MaxThrust * 100
+	local Thrust = math.max( self:GetThrustStrenght(), 0 ) * EntTable.MaxThrust * 100
 
-	local ForceLinear = (Aero * 10000 * self.ForceLinearMultiplier + Vector(Thrust,0,0)) * deltatime
-	local ForceAngle = (Torque * 25 * self.ForceAngleMultiplier - phys:GetAngleVelocity() * 1.5 * self.ForceAngleDampingMultiplier) * deltatime * 250
+	local ForceLinear = (Aero * 10000 * EntTable.ForceLinearMultiplier + Vector(Thrust,0,0)) * deltatime
+	local ForceAngle = (Torque * 25 * EntTable.ForceAngleMultiplier - phys:GetAngleVelocity() * 1.5 * EntTable.ForceAngleDampingMultiplier) * deltatime * 250
 
 	return ForceAngle, ForceLinear, SIM_LOCAL_ACCELERATION
 end
