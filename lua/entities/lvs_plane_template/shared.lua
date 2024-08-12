@@ -99,7 +99,7 @@ function ENT:InitWeapons()
 		local bullet = {}
 		bullet.Src 	= ent:LocalToWorld( Vector(25,0,30) )
 		bullet.Dir 	= ent:GetForward()
-		bullet.Spread 	= Vector( 0.015,  0.015, 0 )
+		bullet.Spread 	= Vector( 0.015, 0.015, 0.015 )
 		bullet.TracerName = "lvs_tracer_orange"
 		bullet.Force	= 10
 		bullet.HullSize 	= 15
