@@ -181,7 +181,9 @@ function ENT:OnEngineActiveChanged( Active )
 	local ViewPos = ply:GetViewEntity():GetPos()
 	local veh = ply:lvsGetVehicle()
 
-	local DrivingMe = veh == self:GetBase() or (self:GetPos() - ViewPos):LengthSqr() < 600000
+	local Base = self:GetBase()
+
+	local DrivingMe = veh == Base or ((self:GetPos() - ViewPos):LengthSqr() < 600000 and not Base:GetAI())
 
 	for id, data in pairs( self.EngineSounds ) do
 		if not isstring( data.sound ) then continue end
