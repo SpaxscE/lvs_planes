@@ -181,27 +181,7 @@ function ENT:OnEngineActiveChanged( Active )
 	local ViewPos = ply:GetViewEntity():GetPos()
 	local veh = ply:lvsGetVehicle()
 
-	local ActivePlanesInRange = 0
-
-	if IsValid( veh ) then
-		ActivePlanesInRange = 999
-	else
-		for _, ent in pairs( LVS:GetVehicles() ) do
-			if ent.Base ~= "lvs_base_fighterplane" or not ent:GetEngineActive() then continue end
-
-			if ent:GetAI() then
-				ActivePlanesInRange = ActivePlanesInRange + 1
-
-				continue
-			end
-
-			if (ent:GetPos() - ViewPos):Length() > 1000 then continue end
-
-			ActivePlanesInRange = ActivePlanesInRange + 1
-		end
-	end
-
-	local DrivingMe = veh == self:GetBase() or ActivePlanesInRange <= 1
+	local DrivingMe = veh == self:GetBase() or (self:GetPos() - ViewPos):LengthSqr() < 600000
 
 	for id, data in pairs( self.EngineSounds ) do
 		if not isstring( data.sound ) then continue end
