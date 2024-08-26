@@ -126,7 +126,7 @@ LVS:AddWeaponPreset( "HMG", {
 		local bullet = {}
 		bullet.Src = Pos
 		bullet.Dir = ent:LocalToWorldAngles( Angle(0,-Dir * Mirror,0) ):Forward()
-		bullet.Spread 	= Vector( 0.04, 0.04, 0.04 )
+		bullet.Spread 	= Vector( 0.02, 0.02, 0.02 )
 		bullet.TracerName = "lvs_tracer_orange"
 		bullet.Force	= 4000
 		bullet.HullSize 	= 15
