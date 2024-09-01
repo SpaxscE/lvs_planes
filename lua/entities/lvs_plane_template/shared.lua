@@ -102,6 +102,7 @@ function ENT:InitWeapons()
 		bullet.Spread 	= Vector( 0.015, 0.015, 0.015 )
 		bullet.TracerName = "lvs_tracer_orange"
 		bullet.Force	= 10
+		--bullet.Force1km = 5 -- bullet force at 1km
 		bullet.HullSize 	= 15
 		bullet.Damage	= 10
 		bullet.Velocity = 30000
