@@ -129,6 +129,12 @@ function ENT:HandleEngineSounds( vehicle )
 
 	self._smTHR = self._smTHR and self._smTHR + (Throttle - self._smTHR) * FT or 0
 
+	local HasActiveSoundEmitters = false
+
+	if DrivingMe then
+		HasActiveSoundEmitters = vehicle:HasActiveSoundEmitters()
+	end
+
 	for id, sound in pairs( self._ActiveSounds ) do
 		if not sound then continue end
 
@@ -157,14 +163,20 @@ function ENT:HandleEngineSounds( vehicle )
 			if FirstPerson then
 				sound.ext:ChangeVolume( 0, 0 )
 
-				if vehicle:HasActiveSoundEmitters() then
+				if HasActiveSoundEmitters then
 					Volume = Volume * 0.25
 					fadespeed = fadespeed * 0.5
 				end
 
 				if sound.int then sound.int:ChangeVolume( Volume, fadespeed ) end
 			else
+				if HasActiveSoundEmitters then
+					Volume = Volume * 0.75
+					fadespeed = fadespeed * 0.5
+				end
+
 				sound.ext:ChangeVolume( Volume, fadespeed )
+
 				if sound.int then sound.int:ChangeVolume( 0, 0 ) end
 			end
 		else
