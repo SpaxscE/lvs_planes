@@ -105,7 +105,7 @@ function ENT:CalcAero( phys, deltatime, EntTable )
 
 	local GravMul = (WorldGravity / 600) * 0.25
 
-	-- crash bebehavior
+	-- crash behavior
 	if self:IsDestroyed() then
 		Steer = phys:GetAngleVelocity() / 200
 
