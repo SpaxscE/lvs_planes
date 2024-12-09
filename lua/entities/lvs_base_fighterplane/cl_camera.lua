@@ -28,7 +28,7 @@ function ENT:CalcViewDirectInput( ply, pos, angles, fov, pod )
 					self._lvsSmoothFreeLookAngles = nil
 					self._lvsSmoothFreeLook = nil
 				else
-					self._lvsSmoothFreeLook = self._lvsSmoothFreeLook - self._lvsSmoothFreeLook * RealFrameTime() * 5
+					self._lvsSmoothFreeLook = self._lvsSmoothFreeLook - self._lvsSmoothFreeLook * RealFrameTime() * 8
 				end
 			end
 		end
