@@ -86,10 +86,24 @@ function ENT:InitWeapons()
 
 	local weapon = {}
 	weapon.Icon = Material("lvs/weapons/bullet.png")
+
+	-- overheat system:
 	weapon.Ammo = 1000
 	weapon.Delay = 0.1
 	weapon.HeatRateUp = 0.2
 	weapon.HeatRateDown = 0.25
+
+	-- clip system example:
+	--[[
+	weapon.Clip = 20
+	weapon.Ammo = 60
+	weapon.Delay = 0.1
+	weapon.ReloadSpeed = 2
+	weapon.OnReload = function( ent )
+		ent:EmitSound("lvs/vehicles/sherman/cannon_reload.wav" )
+	end
+	]]
+
 	weapon.Attack = function( ent )
 		-- "ent" can be either the weapon handler or the vehicle(which has a integrated weapon handler)
 		-- "ent" is where ent:SetHeat, ent:GetHeat, ent:GetAmmo ect functions are called on.
