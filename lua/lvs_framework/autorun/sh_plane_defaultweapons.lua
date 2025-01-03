@@ -217,4 +217,27 @@ sound.Add( {
 	}
 } )
 
+sound.Add( {
+	name = "LVS_FIGHTERPLANE_CRASH",
+	channel = CHAN_STATIC,
+	volume = 1.0,
+	level = 128,
+	sound = {
+		"lvs/vehicles/generic/figher_crash1.wav",
+		"lvs/vehicles/generic/figher_crash2.wav",
+	}
+} )
+
+sound.Add( {
+	name = "LVS_BOMBERPLANE_CRASH",
+	channel = CHAN_STATIC,
+	volume = 1.0,
+	level = 128,
+	sound = {
+		"lvs/vehicles/generic/bomber_crash1.wav",
+		"lvs/vehicles/generic/bomber_crash2.wav",
+		"lvs/vehicles/generic/bomber_crash3.wav",
+	}
+} )
+
 

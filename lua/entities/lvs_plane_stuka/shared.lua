@@ -246,7 +246,7 @@ end
 
 ENT.FlyByAdvance = 0.8
 ENT.FlyBySound = "lvs/vehicles/stuka/flyby.wav" 
-ENT.DeathSound = "lvs/vehicles/generic/crash.wav"
+ENT.DeathSound = "LVS_BOMBERPLANE_CRASH"
 
 ENT.EngineSounds = {
 	{
