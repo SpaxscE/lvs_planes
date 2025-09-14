@@ -52,7 +52,7 @@ function ENT:OnCollision( data, physobj )
 	return false
 end
 
-function ENT:OnMaintenance()
+function ENT:OnMaintenance(entity)
 	self:SetBodygroup( 6, 1 )
 end
 

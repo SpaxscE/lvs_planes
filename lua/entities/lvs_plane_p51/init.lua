@@ -37,7 +37,7 @@ function ENT:OnSpawn( PObj )
 	end
 end
 
-function ENT:OnMaintenance()
+function ENT:OnMaintenance(entity)
 	if not self.MISSILE_ENTITIES then return end
 
 	for _, Missile in pairs( self.MISSILE_ENTITIES ) do

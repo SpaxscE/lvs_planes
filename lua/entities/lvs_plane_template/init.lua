@@ -88,7 +88,8 @@ function ENT:OnEngineActiveChanged( Active )
 end
 
 -- called by the vehicle repair trailer after a repair/refil is performed
-function ENT:OnMaintenance()
+-- entity is the entity that is performing the repair/refil
+function ENT:OnMaintenance(entity)
 end
 
 --[[
