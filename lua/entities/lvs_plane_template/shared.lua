@@ -48,6 +48,9 @@ ENT.TurnRatePitch = 1 -- max turn rate in pitch (up / down)
 ENT.TurnRateYaw = 1 -- max turn rate in yaw (left / right)
 ENT.TurnRateRoll = 1 -- max turn rate in roll
 
+ENT.GravityTurnRatePitch = 1 -- how much the plane pulls nose down when upside down
+ENT.GravityTurnRateYaw = 1 -- how much the plane steers when rolled to the side
+
 ENT.ForceLinearMultiplier = 1 -- multiplier for linear force in X / Y / Z direction
 
 ENT.ForceAngleMultiplier = 1 -- multiplier for angular forces in pitch / yaw / roll direction

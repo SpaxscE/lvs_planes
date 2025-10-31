@@ -24,6 +24,9 @@ ENT.TurnRatePitch = 1
 ENT.TurnRateYaw = 1
 ENT.TurnRateRoll = 0.8
 
+ENT.GravityTurnRatePitch = 1
+ENT.GravityTurnRateYaw = 1
+
 ENT.ThrottleRateUp = 0.4
 ENT.ThrottleRateDown = 0.2
 
