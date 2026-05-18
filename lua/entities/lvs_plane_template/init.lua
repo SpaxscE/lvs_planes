@@ -97,3 +97,34 @@ function ENT:OnCollision( data, physobj )
 	return true -- returning true will prevent default collision mechanics from being run
 end
 ]]
+
+
+-- missile counter measures
+--[[
+function ENT:DoMissileDistraction()
+	if not self:CanDoMissileDistraction() then return end -- this is needed for "self:SetNextMissileDistraction" to work correctly
+
+
+
+	-- fire them using inbuild flare spawner. This will create sound, call notarget and fire flares automatically :
+	-- self:CreateFlares( PosOffset, AngOffset, NumBursts )
+	self:CreateFlares( Vector(50,0,-30), Angle(0,0,0), 4 )
+
+
+
+	-- or do all manually:
+	--
+	--	self:SetMissileNoTarget( 2 ) -- this sets how many seconds we can not be found by missiles. Value doesn't have to be high as the flares themself act as distraction aswell
+	--
+	--	-- self:CreateFlare( PosWorld, DirWorld, Velocity )
+	--	local FlareEnt = self:CreateFlare( self:LocalToWorld( Vector(0,0,50) ), self:GetForward(), 1200 )
+	--
+	--	-- play funny sound
+	--	self:EmitSound("lvs/diprip_countermeasure.wav",85,100,0.25)
+
+
+
+	-- cooldown before next fire, 6 seconds in this case
+	self:SetNextMissileDistraction( 6 )
+end
+]]
